@@ -1,0 +1,160 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "15584a669d101ddaec9a6272407fad63",
+    "content-hash": "6735369d7d72f8986c37b1e9e125cc52",
+    "packages": [
+        {
+            "name": "lichtner/fluentpdo",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fpdo/fluentpdo.git",
+                "reference": "8a34b9c6742544bda9d193e814101cd065d88875"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fpdo/fluentpdo/zipball/8a34b9c6742544bda9d193e814101cd065d88875",
+                "reference": "8a34b9c6742544bda9d193e814101cd065d88875",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "FluentPDO/FluentPDO.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0",
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Marek Lichtner",
+                    "homepage": "http://licht.sk/"
+                }
+            ],
+            "description": "FluentPDO is small PHP library for rapid query building. Killer feature is smart join builder which generates joins automatically.",
+            "homepage": "http://fluentpdo.com/",
+            "keywords": [
+                "database",
+                "dbal",
+                "pdo"
+            ],
+            "time": "2015-02-24 20:50:47"
+        },
+        {
+            "name": "tyurderi/console",
+            "version": "1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tyurderi/console.git",
+                "reference": "e8e5a7a26cdb7c1531465ea171c59eb80ce3a8d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tyurderi/console/zipball/e8e5a7a26cdb7c1531465ea171c59eb80ce3a8d6",
+                "reference": "e8e5a7a26cdb7c1531465ea171c59eb80ce3a8d6",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WCKZ\\Console\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "tyurderi",
+                    "email": "tyurderi@yahoo.de"
+                }
+            ],
+            "time": "2016-03-27 18:10:10"
+        },
+        {
+            "name": "tyurderi/php-file-builder",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tyurderi/php-file-builder.git",
+                "reference": "d9a43acac06b9f86bbe7a3b5644bd15ac5e2fa80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tyurderi/php-file-builder/zipball/d9a43acac06b9f86bbe7a3b5644bd15ac5e2fa80",
+                "reference": "d9a43acac06b9f86bbe7a3b5644bd15ac5e2fa80",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WCKZ\\Generator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "tyurd",
+                    "email": "tyurderi@yahoo.de"
+                }
+            ],
+            "description": "A small helper class to generate files.",
+            "time": "2016-03-25 11:10:43"
+        },
+        {
+            "name": "tyurderi/table-manager",
+            "version": "1.1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tyurderi/php-table-manager.git",
+                "reference": "a6fe8f29046b1aacb7e559607928b826b0f735a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tyurderi/php-table-manager/zipball/a6fe8f29046b1aacb7e559607928b826b0f735a6",
+                "reference": "a6fe8f29046b1aacb7e559607928b826b0f735a6",
+                "shasum": ""
+            },
+            "require": {
+                "tyurderi/php-file-builder": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TM\\Table\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "tyurderi",
+                    "email": "tyurderi@yahoo.de"
+                }
+            ],
+            "description": "A mysql table manager which helps you to create, drop or edit tables.",
+            "time": "2016-03-27 14:01:59"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

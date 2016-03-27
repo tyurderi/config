@@ -1,0 +1,16 @@
+{
+    "name": "tyurderi/config",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "tyurderi",
+            "email": "tyurderi@yahoo.de"
+        }
+    ],
+    "require": {
+        "lichtner/fluentpdo": "^1.0",
+        "tyurderi/console": "^1.1",
+        "tyurderi/php-file-builder": "^1.0",
+        "tyurderi/table-manager": "1.1.0.1"
+    }
+}
