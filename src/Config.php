@@ -6,6 +6,16 @@ class Config
 {
 
     /**
+     * @var string
+     */
+    protected $label;
+
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
      * @var integer
      */
     protected $type;
@@ -25,9 +35,25 @@ class Config
         $this->type = $type;
     }
 
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function setLabel($label)
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
     public function setColumns(array $columns)
     {
         $this->columns = $columns;
+
+        return $this;
     }
 
     public function addField($name, array $type)
