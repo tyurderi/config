@@ -34,11 +34,20 @@ class Manager extends Component
         $this->saveConfig($config);
     }
 
+    protected function getParentId(Config $config)
+    {
+        if($config->getParent() !== null)
+        {
+            return $this->getConfigId($config->getParent()->getName());
+        }
+    }
+
     protected function saveConfig(Config $config)
     {
         $configId = $this->app->getDB()->insert('config', array(
-            'label' => $config->getLabel(),
-            'name'  => $config->getName()
+            'parent_id' => $this->getParentId($config),
+            'label'     => $config->getLabel(),
+            'name'      => $config->getName()
         ))->execute();
 
         $fieldIds = array();

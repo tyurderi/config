@@ -30,6 +30,16 @@ class Config
      */
     protected $columns;
 
+    /**
+     * @var Config
+     */
+    protected $parent;
+
+    /**
+     * @var Config[]
+     */
+    protected $children;
+
     public function __construct($type)
     {
         $this->type = $type;
@@ -69,6 +79,27 @@ class Config
     public function getColumns()
     {
         return $this->columns;
+    }
+
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+        $this->parent->addChildren($this);
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    protected function addChildren(Config $children)
+    {
+        $this->children[] = $children;
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
     }
 
     public function addField($name, array $type)
