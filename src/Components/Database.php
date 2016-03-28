@@ -29,6 +29,11 @@ class Database extends Component
         return $this->db->getPdo();
     }
 
+    public function query($statement)
+    {
+        return $this->PDO()->prepare($statement);
+    }
+
     public function delete($table, $primaryKey = null)
     {
         return $this->db->delete($table, $primaryKey);
