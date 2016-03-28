@@ -21,6 +21,11 @@ class Application
         $this->appDir = dirname(__DIR__);
     }
 
+    public function createConfig($type = Type::MULTIPLE)
+    {
+        return new Config($type);
+    }
+
     public function getAppDir()
     {
         return $this->appDir;
