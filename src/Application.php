@@ -15,9 +15,9 @@ class Application
      */
     protected $appDir;
 
-    public function __construct($configFile)
+    public function __construct($config)
     {
-        $this->config = include $configFile;
+        $this->config = is_string($config) && is_file($config) ? include $config : $config;
         $this->appDir = dirname(__DIR__);
     }
 
