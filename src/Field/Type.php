@@ -8,55 +8,62 @@ class Type
     public static function number($min = null, $max = null)
     {
         return array(
-            'type'  => 'number',
-            'min'   => $min,
-            'max'   => $max
+            'field_type' => 'number',
+            'type'       => 'INT(11)',
+            'min'        => $min,
+            'max'        => $max
         );
     }
 
-    public static function string($maxLength = null)
+    public static function string($maxLength = 255)
     {
         return array(
-            'type'      => 'text',
-            'maxLength' => $maxLength
+            'field_type' => 'text',
+            'type'       => 'VARCHAR(' . $maxLength . ')',
+            'maxLength'  => $maxLength
         );
     }
 
     public static function text($maxLength = null)
     {
         return array(
-            'type'      => 'textarea',
-            'maxLength' => $maxLength
+            'field_type' => 'textarea',
+            'type'       => 'TEXT',
+            'maxLength'  => $maxLength
         );
     }
 
     public static function email()
     {
         return array(
-            'type'  => 'email'
+            'field_type' => 'email',
+            'type'       => 'VARCHAR(255)'
         );
     }
 
     public static function html()
     {
         return array(
-            'type'  => 'html'
+            'field_type' => 'html',
+            'type'       => 'MEDIUMTEXT'
         );
     }
 
     public static function checkbox($checked = false)
     {
         return array(
-            'type'    => 'checkbox',
-            'checked' => $checked
+            'field_type' => 'checkbox',
+            'type'       => 'TINYINT(2)',
+            'checked'    => $checked
         );
     }
 
     public static function select($values)
     {
         return array(
-            'type'   => 'selectbox',
-            'values' => $values
+            'field_type' => 'selectbox',
+            'type'       => 'VARCHAR(32)',
+            'values'     => $values
         );
     }
 
