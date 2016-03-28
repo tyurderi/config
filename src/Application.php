@@ -2,6 +2,8 @@
 
 namespace TM\Config;
 
+use TM\Config\Components\Database;
+
 class Application
 {
 
@@ -15,10 +17,16 @@ class Application
      */
     protected $appDir;
 
+    /**
+     * @var Database
+     */
+    protected $db;
+
     public function __construct($config)
     {
         $this->config = is_string($config) && is_file($config) ? include $config : $config;
         $this->appDir = dirname(__DIR__);
+        $this->db     = new Database($this);
     }
 
     public function createConfig($type = Type::MULTIPLE)
