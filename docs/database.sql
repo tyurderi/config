@@ -1,8 +1,8 @@
 CREATE TABLE `config` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) DEFAULT NULL,
-  `label` varchar(32) NOT NULL,
-  `name` varchar(32) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` INT(11) DEFAULT NULL,
+  `label` VARCHAR(32) NOT NULL,
+  `name` VARCHAR(32) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -11,11 +11,11 @@ ALTER TABLE `config`
     FOREIGN KEY (`parent_id`) REFERENCES `config` (`id`);
 
 CREATE TABLE `config_field` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `config_id` int(11) NOT NULL,
-  `label` varchar(32) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `field_type` varchar(32) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `config_id` INT(11) NOT NULL,
+  `label` VARCHAR(32) NOT NULL,
+  `name` VARCHAR(32) NOT NULL,
+  `field_type` TEXT NOT NULL,
   PRIMARY KEY(`id`)
 );
 
@@ -24,9 +24,9 @@ ALTER TABLE `config_field`
     FOREIGN KEY (`config_id`) REFERENCES `config` (`id`);
 
 CREATE TABLE `config_column` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `config_id` int(11) NOT NULL,
-  `config_field_id` int(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `config_id` INT(11) NOT NULL,
+  `config_field_id` INT(11) NOT NULL,
   PRIMARY KEY(`id`)
 );
 
