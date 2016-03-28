@@ -42,6 +42,11 @@ class Config
         return $this;
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
     public function setLabel($label)
     {
         $this->label = $label;
@@ -49,11 +54,21 @@ class Config
         return $this;
     }
 
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
     public function setColumns(array $columns)
     {
         $this->columns = $columns;
 
         return $this;
+    }
+
+    public function getColumns()
+    {
+        return $this->columns;
     }
 
     public function addField($name, array $type)
@@ -75,6 +90,16 @@ class Config
         }
 
         return null;
+    }
+
+    public function getFields()
+    {
+        return $this->fields;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 
 }
