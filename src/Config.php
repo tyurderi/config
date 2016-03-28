@@ -21,7 +21,7 @@ class Config
     protected $type;
 
     /**
-     * @var array
+     * @var Field\Field[]
      */
     protected $fields;
 
@@ -75,6 +75,7 @@ class Config
     {
         $field = new Field\Field();
         $field->setName($name);
+        $field->setLabel(ucfirst($name));
         $field->setType($type);
 
         $this->fields[$name] = $field;

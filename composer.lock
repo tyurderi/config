@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c1ddcf4a07bd13f38260ca807a8e1809",
-    "content-hash": "6735369d7d72f8986c37b1e9e125cc52",
+    "hash": "5c600e33235f7ff4be5053a44877edc2",
+    "content-hash": "15f466388a93d4de45e06ea10cb927fb",
     "packages": [
         {
             "name": "lichtner/fluentpdo",
@@ -49,22 +49,22 @@
         },
         {
             "name": "tyurderi/console",
-            "version": "1.1",
+            "version": "1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tyurderi/console.git",
-                "reference": "e8e5a7a26cdb7c1531465ea171c59eb80ce3a8d6"
+                "reference": "1f28e8e0542ba05ea6eff17d538164cc5995bb8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tyurderi/console/zipball/e8e5a7a26cdb7c1531465ea171c59eb80ce3a8d6",
-                "reference": "e8e5a7a26cdb7c1531465ea171c59eb80ce3a8d6",
+                "url": "https://api.github.com/repos/tyurderi/console/zipball/1f28e8e0542ba05ea6eff17d538164cc5995bb8d",
+                "reference": "1f28e8e0542ba05ea6eff17d538164cc5995bb8d",
                 "shasum": ""
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "WCKZ\\Console\\": "src/"
+                    "TM\\Console\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -77,7 +77,7 @@
                     "email": "tyurderi@yahoo.de"
                 }
             ],
-            "time": "2016-03-27 18:10:10"
+            "time": "2016-03-28 13:00:31"
         },
         {
             "name": "tyurderi/php-file-builder",

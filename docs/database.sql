@@ -15,7 +15,7 @@ CREATE TABLE `config_field` (
   `config_id` INT(11) NOT NULL,
   `label` VARCHAR(32) NOT NULL,
   `name` VARCHAR(32) NOT NULL,
-  `field_type` TEXT NOT NULL,
+  `field_type` BLOB NOT NULL,
   PRIMARY KEY(`id`)
 );
 

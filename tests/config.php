@@ -14,3 +14,5 @@ $nameList->addField('name', TM\Config\Field\Type::string(32));
 $nameList->setColumns(array(
     'name'
 ));
+
+$app->getManager()->register($nameList);
