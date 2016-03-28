@@ -27,6 +27,11 @@ class Field
         return $this;
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
     public function setLabel($label)
     {
         $this->label = $label;
@@ -34,11 +39,21 @@ class Field
         return $this;
     }
 
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
     public function setType($type)
     {
         $this->type = $type;
 
         return $this;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 
 }
