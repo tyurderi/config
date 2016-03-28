@@ -12,5 +12,10 @@
         "tyurderi/console": "^1.1",
         "tyurderi/php-file-builder": "^1.0",
         "tyurderi/table-manager": "1.1.0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "TM\\Config\\": "src/"
+        }
     }
 }

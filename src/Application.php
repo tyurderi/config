@@ -10,9 +10,20 @@ class Application
      */
     protected $config;
 
+    /**
+     * @var string
+     */
+    protected $appDir;
+
     public function __construct($configFile)
     {
         $this->config = include $configFile;
+        $this->appDir = dirname(__DIR__);
+    }
+
+    public function getAppDir()
+    {
+        return $this->appDir;
     }
 
     public function getConfig($path = null)
