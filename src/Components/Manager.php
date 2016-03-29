@@ -23,6 +23,9 @@ class Manager extends ComponentAbstract
         {
             $this->saveConfig($config);
         }
+
+        $tableGenerator = new Generator\TableGenerator($this->app);
+        $tableGenerator->generate($config->getName(), $config->getFields());
     }
 
     protected function synchronizeFields($configId, Config $config)
