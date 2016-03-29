@@ -2,7 +2,7 @@
 
 namespace TM\Config\Components;
 
-class Database extends Component
+class Database extends ComponentAbstract
 {
 
     /**

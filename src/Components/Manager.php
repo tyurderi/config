@@ -5,7 +5,7 @@ namespace TM\Config\Components;
 use TM\Config\Config;
 use TM\Console\Console;
 
-class Manager extends Component
+class Manager extends ComponentAbstract
 {
 
     public function initialize()

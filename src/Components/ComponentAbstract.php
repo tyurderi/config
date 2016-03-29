@@ -4,7 +4,7 @@ namespace TM\Config\Components;
 
 use TM\Config\Application;
 
-abstract class Component
+abstract class ComponentAbstract
 {
 
     /**
@@ -12,7 +12,7 @@ abstract class Component
      */
     protected $app;
 
-    public function __construct(Application $app)
+    final public function __construct(Application $app)
     {
         $this->app = $app;
         $this->initialize();
