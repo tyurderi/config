@@ -16,6 +16,9 @@
     "autoload": {
         "psr-4": {
             "TM\\Config\\": "src/"
-        }
+        },
+        "files": [
+            "functions.inc.php"
+        ]
     }
 }
