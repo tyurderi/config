@@ -8,6 +8,8 @@ use TM\Config\Components\Manager;
 class Application
 {
 
+    protected static $instance = null;
+
     /**
      * @var array
      */
@@ -28,7 +30,17 @@ class Application
      */
     protected $manager;
 
-    public function __construct($config)
+    public static function getInstance($config)
+    {
+        if(self::$instance === null)
+        {
+            self::$instance = new self($config);
+        }
+
+        return self::$instance;
+    }
+
+    private function __construct($config)
     {
         $this->config  = is_string($config) && is_file($config) ? include $config : $config;
         $this->appDir  = dirname(__DIR__);

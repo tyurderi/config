@@ -3,7 +3,7 @@
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $appDir = dirname(__DIR__);
-$app    = new TM\Config\Application($appDir . '/config.inc.php');
+$app    = TM\Config\Application::getInstance($appDir . '/config.inc.php');
 
 $nameList = $app->createConfig();
 $nameList->setName('name')
