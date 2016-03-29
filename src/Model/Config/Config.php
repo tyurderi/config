@@ -1,6 +1,6 @@
 <?php
 
-namespace TM\Config\Model;
+namespace TM\Config\Model\Config;
 
 class Config
 {

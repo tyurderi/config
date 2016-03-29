@@ -1,8 +1,8 @@
 <?php
 
-namespace TM\Config\Model;
+namespace TM\Config\Model\Config;
 
-class ConfigField
+class Field
 {
 
     /**
