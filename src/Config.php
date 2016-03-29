@@ -102,7 +102,7 @@ class Config
         return $this->children;
     }
 
-    public function addField($name, array $type)
+    public function addField($name, \TM\Config\Field\Type $type)
     {
         $field = new Field\Field();
         $field->setName($name);

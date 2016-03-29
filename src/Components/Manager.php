@@ -58,7 +58,7 @@ class Manager extends Component
                 'config_id'  => $configId,
                 'label'      => $field->getLabel(),
                 'name'       => $field->getName(),
-                'field_type' => json_encode($field->getType())
+                'field_type' => (string) $field->getType()
             ))->execute();
 
             $fieldIds[$field->getName()] = $fieldId;

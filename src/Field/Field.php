@@ -16,7 +16,7 @@ class Field
     protected $label;
 
     /**
-     * @var array
+     * @var Type
      */
     protected $type;
 
