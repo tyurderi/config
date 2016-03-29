@@ -2,6 +2,9 @@
 
 namespace TM\Config\Field;
 
+use TM\Table\Field\Type\TypeInterface;
+use TM\Table\Field\Type as FieldType;
+
 class Type
 {
 
@@ -11,7 +14,7 @@ class Type
     protected $fieldType;
 
     /**
-     * @var string
+     * @var TypeInterface
      */
     protected $databaseType;
 
@@ -20,7 +23,7 @@ class Type
      */
     protected $data;
 
-    public function __construct($fieldType, $databaseType, $data = array())
+    public function __construct($fieldType, TypeInterface $databaseType, $data = array())
     {
         $this->fieldType    = $fieldType;
         $this->databaseType = $databaseType;
@@ -45,15 +48,14 @@ class Type
     public function __toString()
     {
         return json_encode(array(
-            'field_type'    => $this->fieldType,
-            'database_type' => $this->databaseType,
-            'data'          => $this->data
+            'type' => $this->fieldType,
+            'data' => $this->data
         ));
     }
 
     public static function number($min = null, $max = null)
     {
-        return new self('number', 'INT(11)', array(
+        return new self('number', FieldType::int(11), array(
             'min'   => $min,
             'max'   => $max
         ));
@@ -61,38 +63,38 @@ class Type
 
     public static function string($maxLength = 255)
     {
-        return new self('text', 'VARCHAR(' . $maxLength . ')', array(
+        return new self('text', FieldType::varChar($maxLength), array(
             'maxLength' => $maxLength
         ));
     }
 
     public static function text($maxLength = null)
     {
-        return new self('textarea', 'TEXT', array(
+        return new self('textarea', FieldType::text(), array(
             'maxLength' => $maxLength
         ));
     }
 
     public static function email()
     {
-        return new self('email', 'VARCHAR(255)');
+        return new self('email', FieldType::varChar(255));
     }
 
     public static function html()
     {
-        return new self('html', 'MEDIUMTEXT');
+        return new self('html', FieldType::mediumText());
     }
 
     public static function checkbox($checked = false)
     {
-        return new self('checkbox', 'TINYINT(2)', array(
+        return new self('checkbox', FieldType::tinyInt(2), array(
             'checked'   => $checked
         ));
     }
 
     public static function select($values)
     {
-        return new self('select', 'VARCHAR(32)', array(
+        return new self('select', FieldType::varChar(32), array(
             'values'    => $values
         ));
     }

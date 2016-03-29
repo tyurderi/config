@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7ce6b1945e938d5d93f0e4944b8f9133",
-    "content-hash": "15f466388a93d4de45e06ea10cb927fb",
+    "hash": "7141fed191f86f120c16de65cde157ea",
+    "content-hash": "0fabd7cd7d62df43045efc788b453804",
     "packages": [
         {
             "name": "lichtner/fluentpdo",
@@ -114,16 +114,16 @@
         },
         {
             "name": "tyurderi/table-manager",
-            "version": "1.1.0.1",
+            "version": "1.1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tyurderi/php-table-manager.git",
-                "reference": "a6fe8f29046b1aacb7e559607928b826b0f735a6"
+                "reference": "b4aa5fef82290f84db9d8a43a44aaf9abf6be22e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tyurderi/php-table-manager/zipball/a6fe8f29046b1aacb7e559607928b826b0f735a6",
-                "reference": "a6fe8f29046b1aacb7e559607928b826b0f735a6",
+                "url": "https://api.github.com/repos/tyurderi/php-table-manager/zipball/b4aa5fef82290f84db9d8a43a44aaf9abf6be22e",
+                "reference": "b4aa5fef82290f84db9d8a43a44aaf9abf6be22e",
                 "shasum": ""
             },
             "require": {
@@ -146,7 +146,7 @@
                 }
             ],
             "description": "A mysql table manager which helps you to create, drop or edit tables.",
-            "time": "2016-03-27 14:01:59"
+            "time": "2016-03-29 11:30:33"
         }
     ],
     "packages-dev": [],
