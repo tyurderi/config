@@ -42,11 +42,6 @@ class ModelGenerator extends ComponentAbstract
         $class->add('class %s extends %s', $className, self::MODEL_PROXY_EXTENDS)->newLine();
         $class->add('{')->newLine(2);
 
-        $class->indent(1)->add('protected $className = \'%s\\%s\';', self::MODEL_PROXY_NAMESPACE, $className)
-            ->newLine(2);
-
-        $class->indent(1)->add('protected $tableName = \'%s\';', $config->getName())->newLine(2);
-
         foreach($fields as $field)
         {
             $class->indent(1)->add('/**')->newLine();
@@ -72,6 +67,7 @@ class ModelGenerator extends ComponentAbstract
         }
 
         $class->indent(1)->add('/**')->newLine();
+        $class->indent(1)->add(' * @param int $primaryKey')->newLine();
         $class->indent(1)->add(' * @return %s', $className)->newLine();
         $class->indent(1)->add(' */')->newLine();
         $class->indent(1)->add('public static function find($primaryKey = null)')->newLine();
@@ -88,11 +84,22 @@ class ModelGenerator extends ComponentAbstract
         $class->indent(1)->add('}')->newLine(2);
 
         $class->indent(1)->add('/**')->newLine();
+        $class->indent(1)->add(' * @param array $criteria')->newLine();
         $class->indent(1)->add(' * @return %s[]', $className)->newLine();
         $class->indent(1)->add(' */')->newLine();
         $class->indent(1)->add('public static function findBy(array $criteria)')->newLine();
         $class->indent(1)->add('{')->newLine();
         $class->indent(2)->add('return parent::findBy($criteria);')->newLine();
+        $class->indent(1)->add('}')->newLine(2);
+
+        $class->indent(1)->add('protected static function getSource()')->newLine();
+        $class->indent(1)->add('{')->newLine();
+        $class->indent(2)->add('return \'%s\';', $config->getName())->newLine();
+        $class->indent(1)->add('}')->newLine(2);
+
+        $class->indent(1)->add('protected static function getClassName()')->newLine();
+        $class->indent(1)->add('{')->newLine();
+        $class->indent(2)->add('return \'%s\\%s\';', self::MODEL_PROXY_NAMESPACE, $className)->newLine();
         $class->indent(1)->add('}')->newLine(2);
 
         $class->add('}')->newLine();

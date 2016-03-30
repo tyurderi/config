@@ -4,18 +4,11 @@ namespace TM\Config\Model;
 
 use TM\Config\Application;
 
-class ModelAbstract
+abstract class ModelAbstract
 {
 
-    /**
-     * @var string
-     */
-    protected static $className;
-
-    /**
-     * @var string
-     */
-    protected static $tableName;
+    abstract protected static function getClassName();
+    abstract protected static function getSource();
 
     public static function find($primaryKey = null)
     {
@@ -48,25 +41,31 @@ class ModelAbstract
 
     protected static function createModel($record)
     {
-        $model = new self::$className();
-
-        foreach($record as $name => $value)
+        if(!empty($record))
         {
-            $fieldName  = camelize($name);
-            $methodName = 'set' . $fieldName;
+            $className = static::getClassName();
+            $model     = new $className();
 
-            if(method_exists($model, $methodName))
+            foreach($record as $name => $value)
             {
-                $model->{$methodName}($value);
+                $fieldName  = camelize($name);
+                $methodName = 'set' . $fieldName;
+
+                if(method_exists($model, $methodName))
+                {
+                    $model->{$methodName}($value);
+                }
             }
+
+            return $model;
         }
 
-        return $model;
+        return false;
     }
 
     protected static function getQuery()
     {
-        return Application::getInstance()->getDB()->from(self::$tableName);
+        return Application::getInstance()->getDB()->from(static::getSource());
     }
 
 }

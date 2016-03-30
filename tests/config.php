@@ -16,3 +16,8 @@ $nameList->setColumns(array(
 ));
 
 $app->getManager()->register($nameList);
+
+$app->getDB()->insert('name', array('name' => 'Max'))->execute();
+
+$name = TM\Config\Model\Proxy\Name::find();
+echo $name->getName(), PHP_EOL;
