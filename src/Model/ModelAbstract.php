@@ -7,7 +7,6 @@ use TM\Config\Application;
 abstract class ModelAbstract
 {
 
-    abstract protected static function getClassName();
     abstract protected static function getSource();
 
     public static function find($primaryKey = null)
@@ -43,7 +42,7 @@ abstract class ModelAbstract
     {
         if(!empty($record))
         {
-            $className = static::getClassName();
+            $className = new static();
             $model     = new $className();
 
             foreach($record as $name => $value)

@@ -97,11 +97,6 @@ class ModelGenerator extends ComponentAbstract
         $class->indent(2)->add('return \'%s\';', $config->getName())->newLine();
         $class->indent(1)->add('}')->newLine(2);
 
-        $class->indent(1)->add('protected static function getClassName()')->newLine();
-        $class->indent(1)->add('{')->newLine();
-        $class->indent(2)->add('return \'%s\\%s\';', self::MODEL_PROXY_NAMESPACE, $className)->newLine();
-        $class->indent(1)->add('}')->newLine(2);
-
         $class->add('}')->newLine();
 
         $filename = $this->getFilename($className);
