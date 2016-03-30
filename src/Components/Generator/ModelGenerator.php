@@ -43,7 +43,9 @@ class ModelGenerator extends ComponentAbstract
         $class->add('{')->newLine(2);
 
         $class->indent(1)->add('protected $className = \'%s\\%s\';', self::MODEL_PROXY_NAMESPACE, $className)
-            ->newLine();
+            ->newLine(2);
+
+        $class->indent(1)->add('protected $tableName = \'%s\';', $config->getName())->newLine(2);
 
         foreach($fields as $field)
         {
