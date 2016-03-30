@@ -45,8 +45,7 @@ abstract class ModelAbstract
     {
         if(!empty($record))
         {
-            $className = new static();
-            $model     = new $className();
+            $model = new static();
 
             foreach($record as $name => $value)
             {
