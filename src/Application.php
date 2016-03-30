@@ -30,7 +30,7 @@ class Application
      */
     protected $manager;
 
-    public static function getInstance($config)
+    public static function getInstance($config = null)
     {
         if(self::$instance === null)
         {

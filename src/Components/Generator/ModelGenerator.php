@@ -66,6 +66,30 @@ class ModelGenerator extends ComponentAbstract
             $class->indent(1)->add('}')->newLine(2);
         }
 
+        $class->indent(1)->add('/**')->newLine();
+        $class->indent(1)->add(' * @return %s', $className)->newLine();
+        $class->indent(1)->add(' */')->newLine();
+        $class->indent(1)->add('public static function find($primaryKey = null)')->newLine();
+        $class->indent(1)->add('{')->newLine();
+        $class->indent(2)->add('return parent::find($primaryKey);')->newLine();
+        $class->indent(1)->add('}')->newLine(2);
+
+        $class->indent(1)->add('/**')->newLine();
+        $class->indent(1)->add(' * @return %s[]', $className)->newLine();
+        $class->indent(1)->add(' */')->newLine();
+        $class->indent(1)->add('public static function findAll()')->newLine();
+        $class->indent(1)->add('{')->newLine();
+        $class->indent(2)->add('return parent::findAll();')->newLine();
+        $class->indent(1)->add('}')->newLine(2);
+
+        $class->indent(1)->add('/**')->newLine();
+        $class->indent(1)->add(' * @return %s[]', $className)->newLine();
+        $class->indent(1)->add(' */')->newLine();
+        $class->indent(1)->add('public static function findBy(array $criteria)')->newLine();
+        $class->indent(1)->add('{')->newLine();
+        $class->indent(2)->add('return parent::findBy($criteria);')->newLine();
+        $class->indent(1)->add('}')->newLine(2);
+
         $class->add('}')->newLine();
 
         $filename = $this->getFilename($className);
