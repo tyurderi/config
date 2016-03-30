@@ -7,6 +7,8 @@ use TM\Config\Application;
 abstract class ModelAbstract
 {
 
+    const PRIMARY_KEY = 'id';
+
     protected static function getSource()
     {
         return new \BadMethodCallException();
@@ -17,7 +19,7 @@ abstract class ModelAbstract
         $query = self::getQuery();
         if($primaryKey !== null)
         {
-            $query = $query->where('id', $primaryKey);
+            $query = $query->where(static::PRIMARY_KEY, $primaryKey);
         }
 
         return self::createModel($query->fetch());
