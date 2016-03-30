@@ -11,7 +11,7 @@ abstract class ModelAbstract
 
     protected static function getSource()
     {
-        return new \BadMethodCallException();
+        throw new \BadMethodCallException();
     }
 
     public static function find($primaryKey = null)
