@@ -41,7 +41,7 @@ abstract class ModelAbstract
         return $models;
     }
 
-    protected static function createModel($record)
+    private static function createModel($record)
     {
         if(!empty($record))
         {
@@ -65,7 +65,7 @@ abstract class ModelAbstract
         return false;
     }
 
-    protected static function getQuery()
+    private static function getQuery()
     {
         return Application::getInstance()->getDB()->from(static::getSource());
     }
