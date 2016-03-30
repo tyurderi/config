@@ -7,7 +7,10 @@ use TM\Config\Application;
 abstract class ModelAbstract
 {
 
-    abstract protected static function getSource();
+    protected static function getSource()
+    {
+        return new \BadMethodCallException();
+    }
 
     public static function find($primaryKey = null)
     {
