@@ -19,13 +19,19 @@ class Type
     protected $databaseType;
 
     /**
+     * @var string
+     */
+    protected $valueType;
+
+    /**
      * @var array
      */
     protected $data;
 
-    public function __construct($fieldType, TypeInterface $databaseType, $data = array())
+    public function __construct($fieldType, $valueType, TypeInterface $databaseType, $data = array())
     {
         $this->fieldType    = $fieldType;
+        $this->valueType    = $valueType;
         $this->databaseType = $databaseType;
         $this->data         = $data;
     }
@@ -33,6 +39,11 @@ class Type
     public function getFieldType()
     {
         return $this->fieldType;
+    }
+
+    public function getValueType()
+    {
+        return $this->valueType;
     }
 
     public function getDatabaseType()
@@ -55,7 +66,7 @@ class Type
 
     public static function number($min = null, $max = null)
     {
-        return new self('number', FieldType::int(11), array(
+        return new self('number', 'integer', FieldType::int(11), array(
             'min'   => $min,
             'max'   => $max
         ));
@@ -63,38 +74,38 @@ class Type
 
     public static function string($maxLength = 255)
     {
-        return new self('text', FieldType::varChar($maxLength), array(
+        return new self('text', 'string', FieldType::varChar($maxLength), array(
             'maxLength' => $maxLength
         ));
     }
 
     public static function text($maxLength = null)
     {
-        return new self('textarea', FieldType::text(), array(
+        return new self('textarea', 'string', FieldType::text(), array(
             'maxLength' => $maxLength
         ));
     }
 
     public static function email()
     {
-        return new self('email', FieldType::varChar(255));
+        return new self('email', 'string', FieldType::varChar(255));
     }
 
     public static function html()
     {
-        return new self('html', FieldType::mediumText());
+        return new self('html', 'string', FieldType::mediumText());
     }
 
     public static function checkbox($checked = false)
     {
-        return new self('checkbox', FieldType::tinyInt(2), array(
+        return new self('checkbox', 'boolean', FieldType::tinyInt(2), array(
             'checked'   => $checked
         ));
     }
 
     public static function select($values)
     {
-        return new self('select', FieldType::varChar(32), array(
+        return new self('select', 'string', FieldType::varChar(32), array(
             'values'    => $values
         ));
     }
