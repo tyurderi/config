@@ -2,18 +2,15 @@
 
 namespace TM\Config;
 
-use TM\Config\Components\Database;
-use TM\Config\Components\Manager;
-
 class Application
 {
 
-    protected static $instance = null;
+    protected static $instance  = null;
 
     /**
-     * @var array
+     * @var Modules
      */
-    protected $config;
+    protected $modules;
 
     /**
      * @var string
@@ -21,14 +18,9 @@ class Application
     protected $appDir;
 
     /**
-     * @var Database
+     * @var array
      */
-    protected $db;
-
-    /**
-     * @var Manager
-     */
-    protected $manager;
+    protected $config;
 
     public static function getInstance($config = null)
     {
@@ -44,23 +36,12 @@ class Application
     {
         $this->config  = is_string($config) && is_file($config) ? include $config : $config;
         $this->appDir  = dirname(__DIR__);
-        $this->db      = new Database($this);
-        $this->manager = new Manager($this);
+        $this->modules = new Modules($this);
     }
 
-    public function createConfig($type = Type::MULTIPLE)
+    public function Modules()
     {
-        return new Config($type);
-    }
-
-    public function getManager()
-    {
-        return $this->manager;
-    }
-
-    public function getDB()
-    {
-        return $this->db;
+        return $this->modules;
     }
 
     public function getAppDir()

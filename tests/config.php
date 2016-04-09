@@ -5,7 +5,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $appDir = dirname(__DIR__);
 $app    = TM\Config\Application::getInstance($appDir . '/config.inc.php');
 
-$nameList = $app->createConfig();
+$nameList = new \TM\Config\Config(\TM\Config\Type::MULTIPLE);
 $nameList->setName('name')
          ->setLabel('Names');
 
@@ -15,9 +15,9 @@ $nameList->setColumns(array(
     'name'
 ));
 
-$app->getManager()->register($nameList);
+$app->Modules()->Manager()->register($nameList);
 
-$app->getDB()->insert('name', array('name' => 'Max'))->execute();
+$app->Modules()->DB()->insert('name', array('name' => 'Max'))->execute();
 
 $name = TM\Config\Model\Proxy\Name::find();
 echo $name->getName(), PHP_EOL;

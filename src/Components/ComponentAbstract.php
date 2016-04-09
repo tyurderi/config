@@ -20,4 +20,9 @@ abstract class ComponentAbstract
 
     abstract public function initialize();
 
+    final protected function DB()
+    {
+        return $this->app->Modules()->DB();
+    }
+
 }

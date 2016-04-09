@@ -3,7 +3,6 @@
 namespace TM\Config\Components\Generator;
 
 use TM\Config\Config;
-use TM\Config\Field\Field;
 use TM\Config\Components\ComponentAbstract;
 use WCKZ\Generator\FileBuilder;
 

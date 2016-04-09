@@ -33,9 +33,9 @@ class Manager extends ComponentAbstract
 
     protected function synchronizeFields($configId, Config $config)
     {
-        $this->app->getDB()->delete('config_column')->where('config_id', $configId)->execute();
-        $this->app->getDB()->delete('config_field')->where('config_id', $configId)->execute();
-        $this->app->getDB()->delete('config')->where('id', $configId)->execute();
+        $this->DB()->delete('config_column')->where('config_id', $configId)->execute();
+        $this->DB()->delete('config_field')->where('config_id', $configId)->execute();
+        $this->DB()->delete('config')->where('id', $configId)->execute();
 
         $this->saveConfig($config);
     }
@@ -50,7 +50,7 @@ class Manager extends ComponentAbstract
 
     protected function saveConfig(Config $config)
     {
-        $configId = $this->app->getDB()->insert('config', array(
+        $configId = $this->DB()->insert('config', array(
             'parent_id' => $this->getParentId($config),
             'label'     => $config->getLabel(),
             'name'      => $config->getName()
@@ -60,7 +60,7 @@ class Manager extends ComponentAbstract
 
         foreach($config->getFields() as $field)
         {
-            $fieldId = $this->app->getDB()->insert('config_field', array(
+            $fieldId = $this->DB()->insert('config_field', array(
                 'config_id'  => $configId,
                 'label'      => $field->getLabel(),
                 'name'       => $field->getName(),
@@ -76,7 +76,7 @@ class Manager extends ComponentAbstract
             {
                 $fieldId = $fieldIds[$column];
 
-                $this->app->getDB()->insert('config_column', array(
+                $this->DB()->insert('config_column', array(
                     'config_id'       => $configId,
                     'config_field_id' => $fieldId
                 ))->execute();
@@ -86,7 +86,7 @@ class Manager extends ComponentAbstract
 
     protected function getConfigId($name)
     {
-        return $this->app->getDB()
+        return $this->DB()
             ->from('config')
             ->where('name', $name)
             ->fetch('id');

@@ -68,7 +68,7 @@ abstract class ModelAbstract
 
     private static function getQuery()
     {
-        return Application::getInstance()->getDB()->from(static::getSource());
+        return Application::getInstance()->Modules()->DB()->from(static::getSource());
     }
 
 }

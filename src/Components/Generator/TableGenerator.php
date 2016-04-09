@@ -42,14 +42,14 @@ class TableGenerator extends ComponentAbstract
 
         $query = $this->manager->createQuery($table);
 
-        return $this->app->getDB()->query($query)->execute();
+        return $this->DB()->query($query)->execute();
     }
 
     public function drop($name)
     {
         $query = 'DROP TABLE IF EXISTS `' . $name . '`';
 
-        return $this->app->getDB()->query($query)->execute();
+        return $this->DB()->query($query)->execute();
     }
 
 }
