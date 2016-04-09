@@ -14,13 +14,11 @@ class Application extends \TM\Config\Application
     {
         parent::initialize($config);
 
-        $container  = new \Slim\Container(array(
+        $this->slim = new \Slim\App(array(
             'settings' => array(
                 'displayErrorDetails' => true
             )
         ));
-
-        $this->slim = new \Slim\App($container);
 
         $this->register('/', 'index.index');
     }
