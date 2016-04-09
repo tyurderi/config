@@ -22,7 +22,7 @@ class Application extends \TM\Config\Application
 
         $this->get('/', 'index.index');
 
-        $this->any('/search', 'index.search');
+        $this->post('/search', 'index.search');
     }
 
     public function run()

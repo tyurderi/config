@@ -22,7 +22,7 @@ class IndexController extends ControllerAbstract
      */
     public function searchAction(Request $request, Response $response)
     {
-        $input = $request->getParam('input', '');
+        $input = $request->getParsedBodyParam('input', '');
 
         $query = $this->app->Modules()->DB()
             ->from('config')
