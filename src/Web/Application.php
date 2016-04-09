@@ -20,7 +20,7 @@ class Application extends \TM\Config\Application
             )
         ));
 
-        $this->map('/', 'index.index');
+        $this->get('/', 'index.index');
     }
 
     public function run()
@@ -33,7 +33,22 @@ class Application extends \TM\Config\Application
         return $this->slim;
     }
 
-    protected function map($route, $target, $method = 'GET')
+    public function get($route, $target)
+    {
+        return $this->map($route, $target, array('GET'));
+    }
+
+    public function post($route, $target)
+    {
+        return $this->map($route, $target, array('POST'));
+    }
+
+    public function any($route, $target)
+    {
+        return $this->map($route, $target, array('GET', 'POST'));
+    }
+
+    protected function map($route, $target, $methods = array())
     {
         list($controller, $action) = $this->parseTarget($target);
 
@@ -47,7 +62,7 @@ class Application extends \TM\Config\Application
                 return $controller->dispatch($action, $params);
             };
 
-            return $this->slim->map(array($method), $route, $closure);
+            return $this->slim->map($methods, $route, $closure);
         }
     }
 
