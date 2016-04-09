@@ -4,6 +4,7 @@ namespace TM\Config;
 
 use Fuel\Dependency\Container;
 use TM\Config\Components\Database;
+use TM\Config\Components\Http\JsonResponse;
 use TM\Config\Components\Manager;
 use TM\Config\Components\View\View;
 
@@ -36,6 +37,10 @@ class Modules
         $this->container->register('view', function() {
             return new View($this->app);
         });
+
+        $this->container->register('json', function() {
+            return new JsonResponse();
+        });
     }
 
     /** @return Database */
@@ -54,6 +59,12 @@ class Modules
     public function View()
     {
         return $this->container['view'];
+    }
+
+    /** @return JsonResponse */
+    public function Json()
+    {
+        return $this->container['json'];
     }
 
 }

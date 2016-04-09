@@ -2,6 +2,7 @@
 
 namespace TM\Config\Web;
 
+use TM\Config\Components\Http\JsonResponse;
 use TM\Config\Components\View\View;
 
 abstract class ControllerAbstract
@@ -17,10 +18,16 @@ abstract class ControllerAbstract
      */
     protected $view;
 
+    /**
+     * @var JsonResponse
+     */
+    protected $json;
+
     final public function __construct(Application $app)
     {
         $this->app  = $app;
         $this->view = $app->Modules()->View();
+        $this->json = $app->Modules()->Json();
 
         $this->initialize();
     }
