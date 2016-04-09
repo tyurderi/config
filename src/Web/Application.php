@@ -32,15 +32,15 @@ class Application extends \TM\Config\Application
     {
         list($controller, $action) = $this->parseTarget($target);
 
-        if(class_exists($controller) && method_exists($controller, $action))
+        if(class_exists($controller) && method_exists($this->slim, $method))
         {
             $slim = $this->slim;
 
-            $this->slim->map([$method], $route, function($request, $response, $params) use ($slim, $controller, $action) {
+            $this->slim->map(array($method), $route, function($request, $response, $params) use ($slim, $controller, $action) {
                 /** @var ControllerAbstract $controller */
                 $controller = new $controller($slim);
 
-                return $controller->{$action}($request, $response, $params);
+                return $controller->dispatch($action, $params);
             });
         }
     }
@@ -50,7 +50,6 @@ class Application extends \TM\Config\Application
         $result = explode('.', $target, 2);
 
         $result[0] = 'TM\\Config\\Web\\Controllers\\' . ucfirst($result[0]) . 'Controller';
-        $result[1] = $result[1] . 'Action';
 
         return $result;
     }
