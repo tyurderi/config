@@ -1,5 +1,8 @@
 <?php
 
+ini_set('display_errors', 'on');
+error_reporting(E_ALL);
+
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $appDir = dirname(__DIR__);

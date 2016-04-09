@@ -28,20 +28,26 @@ class Application extends \TM\Config\Application
         $this->slim->run();
     }
 
+    public function getSlim()
+    {
+        return $this->slim;
+    }
+
     protected function register($route, $target, $method = 'GET')
     {
         list($controller, $action) = $this->parseTarget($target);
 
         if(class_exists($controller) && method_exists($this->slim, $method))
         {
-            $slim = $this->slim;
-
-            $this->slim->map(array($method), $route, function($request, $response, $params) use ($slim, $controller, $action) {
+            $self    = $this;
+            $closure = function($request, $response, $params) use ($self, $controller, $action) {
                 /** @var ControllerAbstract $controller */
-                $controller = new $controller($slim);
+                $controller = new $controller($self);
 
                 return $controller->dispatch($action, $params);
-            });
+            };
+
+            $this->slim->map(array($method), $route, $closure);
         }
     }
 

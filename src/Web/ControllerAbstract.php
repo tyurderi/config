@@ -6,13 +6,13 @@ abstract class ControllerAbstract
 {
 
     /**
-     * @var \Slim\App
+     * @var Application
      */
-    protected $slim;
+    protected $app;
 
-    final public function __construct(\Slim\App $slim)
+    final public function __construct(Application $app)
     {
-        $this->slim = $slim;
+        $this->app = $app;
 
         $this->initialize();
     }
@@ -27,8 +27,9 @@ abstract class ControllerAbstract
         $action = $action . 'Action';
         if(method_exists($this, $action))
         {
-            $request  = $this->slim->getContainer()->get('request');
-            $response = $this->slim->getContainer()->get('response');
+            $slim     = $this->app->getSlim();
+            $request  = $slim->getContainer()->get('request');
+            $response = $slim->getContainer()->get('response');
 
             return $this->{$action}($request, $response, $params);
         }
