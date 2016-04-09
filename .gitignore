@@ -1,3 +1,6 @@
 /vendor/
 /.idea/
 /src/Model/Proxy/*.php
+
+/var/cache/twig/*
+!/var/cache/twig/.gitkeep
