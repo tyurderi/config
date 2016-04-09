@@ -37,7 +37,7 @@ class Application extends \TM\Config\Application
     {
         list($controller, $action) = $this->parseTarget($target);
 
-        if(class_exists($controller) && method_exists($this->slim, $method))
+        if(class_exists($controller))
         {
             $self    = $this;
             $closure = function($request, $response, $params) use ($self, $controller, $action) {
