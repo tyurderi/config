@@ -12,7 +12,7 @@ class IndexController extends ControllerAbstract
     /**
      * Action for filtering/listing configurations.
      *
-     * @pattern /route
+     * @pattern /search
      * @method  POST
      *
      * @param $request  Request
