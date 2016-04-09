@@ -36,7 +36,7 @@ class Application extends \TM\Config\Application
         {
             $slim = $this->slim;
 
-            $this->slim->{$method}($route, function($request, $response, $params) use ($slim, $controller, $action) {
+            $this->slim->map([$method], $route, function($request, $response, $params) use ($slim, $controller, $action) {
                 /** @var ControllerAbstract $controller */
                 $controller = new $controller($slim);
 
