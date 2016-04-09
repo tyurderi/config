@@ -26,7 +26,7 @@ class Application
     {
         if(self::$instance === null)
         {
-            self::$instance = new self();
+            self::$instance = new static();
             self::$instance->initialize($config);
         }
 
