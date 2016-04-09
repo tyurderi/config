@@ -5,6 +5,7 @@ namespace TM\Config;
 use Fuel\Dependency\Container;
 use TM\Config\Components\Database;
 use TM\Config\Components\Manager;
+use TM\Config\Components\View\View;
 
 class Modules
 {
@@ -31,6 +32,10 @@ class Modules
         $this->container->register('manager', function() {
             return new Manager($this->app);
         });
+
+        $this->container->register('view', function() {
+            return new View($this->app);
+        });
     }
 
     /** @return Database */
@@ -43,6 +48,12 @@ class Modules
     public function Manager()
     {
         return $this->container['manager'];
+    }
+
+    /** @return View */
+    public function View()
+    {
+        return $this->container['view'];
     }
 
 }

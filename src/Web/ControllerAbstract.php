@@ -2,6 +2,8 @@
 
 namespace TM\Config\Web;
 
+use TM\Config\Components\View\View;
+
 abstract class ControllerAbstract
 {
 
@@ -10,9 +12,15 @@ abstract class ControllerAbstract
      */
     protected $app;
 
+    /**
+     * @var View
+     */
+    protected $view;
+
     final public function __construct(Application $app)
     {
-        $this->app = $app;
+        $this->app  = $app;
+        $this->view = $app->Modules()->View();
 
         $this->initialize();
     }
