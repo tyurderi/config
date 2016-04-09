@@ -14,7 +14,13 @@ class Application extends \TM\Config\Application
     {
         parent::initialize($config);
 
-        $this->slim = new \Slim\App();
+        $container  = new \Slim\Container(array(
+            'settings' => array(
+                'displayErrorDetails' => true
+            )
+        ));
+
+        $this->slim = new \Slim\App($container);
 
         $this->register('/', 'index.index');
     }
@@ -30,10 +36,13 @@ class Application extends \TM\Config\Application
 
         if(class_exists($controller) && method_exists($controller, $action))
         {
-            $this->slim->{$method}($route, function($request, $response, $params) use($controller, $action) {
+            $slim = $this->slim;
+
+            $this->slim->{$method}($route, function($request, $response, $params) use ($slim, $controller, $action) {
                 /** @var ControllerAbstract $controller */
-                $controller = new $controller();
-                $controller->{$action}($request, $response, $params);
+                $controller = new $controller($slim);
+
+                return $controller->{$action}($request, $response, $params);
             });
         }
     }

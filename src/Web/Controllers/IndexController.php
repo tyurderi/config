@@ -11,7 +11,7 @@ class IndexController extends ControllerAbstract
 
     public function indexAction(Request $request, Response $response)
     {
-
+        return 'Hello World';
     }
 
 }
