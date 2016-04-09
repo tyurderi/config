@@ -26,13 +26,16 @@ class Application
     {
         if(self::$instance === null)
         {
-            self::$instance = new self($config);
+            self::$instance = new self();
+            self::$instance->initialize($config);
         }
 
         return self::$instance;
     }
 
-    private function __construct($config)
+    private function __construct() { }
+
+    protected function initialize($config)
     {
         $this->config  = is_string($config) && is_file($config) ? include $config : $config;
         $this->appDir  = dirname(__DIR__);
