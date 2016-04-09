@@ -20,7 +20,7 @@ class Application extends \TM\Config\Application
             )
         ));
 
-        $this->register('/', 'index.index');
+        $this->map('/', 'index.index');
     }
 
     public function run()
@@ -33,7 +33,7 @@ class Application extends \TM\Config\Application
         return $this->slim;
     }
 
-    protected function register($route, $target, $method = 'GET')
+    protected function map($route, $target, $method = 'GET')
     {
         list($controller, $action) = $this->parseTarget($target);
 
@@ -47,7 +47,7 @@ class Application extends \TM\Config\Application
                 return $controller->dispatch($action, $params);
             };
 
-            $this->slim->map(array($method), $route, $closure);
+            return $this->slim->map(array($method), $route, $closure);
         }
     }
 
