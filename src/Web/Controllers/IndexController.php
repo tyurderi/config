@@ -9,6 +9,11 @@ use TM\Config\Web\ControllerAbstract;
 class IndexController extends ControllerAbstract
 {
 
+    public function indexAction()
+    {
+        return $this->view->pick('index/index')->finish();
+    }
+
     /**
      * Action for filtering/listing configurations.
      *
