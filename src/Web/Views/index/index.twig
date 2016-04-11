@@ -10,5 +10,31 @@
 </head>
 <body>
 
+<div class="header--container">
+    <div class="configuration-filter--form">
+        <form method="POST" action="{{ url('search/config') }}">
+            <input type="text" name="input" placeholder="Filter configurations..." />
+
+            <i class="fa fa-search"></i>
+        </form>
+    </div>
+    <div class="configuration--name">
+        Complex PHP Configuration
+    </div>
+</div>
+
+<div class="configuration--list">
+    <div class="list--header">
+        All Configurations (1)
+    </div>
+    <div class="list--items">
+        <div class="item">Accounts</div>
+    </div>
+</div>
+
+<div class="configuration--container">
+    $content;
+</div>
+
 </body>
 </html>
