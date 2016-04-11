@@ -45,6 +45,8 @@ class View extends ComponentAbstract
 
         $this->context  = array();
         $this->viewName = 'index/index';
+
+        $this->twig->addExtension(new Extension($this->app));
     }
 
     public function exists($name)
