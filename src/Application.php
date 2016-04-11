@@ -22,6 +22,11 @@ class Application
      */
     protected $config;
 
+    /**
+     * @param string|array $config
+     *
+     * @return Application
+     */
     public static function getInstance($config = null)
     {
         if(self::$instance === null)
