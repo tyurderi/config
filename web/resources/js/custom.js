@@ -1,5 +1,6 @@
-;(function($, window, undefined) {
+;(function($, window, require, undefined) {
+    "use strict";
 
-    console.log('hello world');
+    
 
-})(jQuery, window);
+})(jQuery, window, require);
