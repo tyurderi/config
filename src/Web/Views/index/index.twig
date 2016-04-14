@@ -26,10 +26,12 @@
 
 <div class="configuration--list">
     <div class="list--header">
-        All Configurations (1)
+        All Configurations ({{ configurations|length }})
     </div>
     <div class="list--items">
-        <div class="item active" data-configId="1">Accounts</div>
+        {% for config in configurations %}
+            <div class="item" data-configId="{{ config.id }}">{{ config.label }}</div>
+        {% endfor %}
     </div>
 </div>
 
