@@ -3,10 +3,10 @@
     "use strict";
 
     // initialize configuration filter
-    require('configuration/filter')();
+    require('local/configuration/filter')();
 
 })(jQuery, window, require);
-},{"configuration/filter":2}],2:[function(require,module,exports){
+},{"local/configuration/filter":2}],2:[function(require,module,exports){
 module.exports = function()
 {
     var $configurationList  = $('.configuration--list .list--items'),

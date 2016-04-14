@@ -2,6 +2,6 @@
     "use strict";
 
     // initialize configuration filter
-    require('configuration/filter')();
+    require('local/configuration/filter')();
 
 })(jQuery, window, require);
