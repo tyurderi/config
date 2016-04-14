@@ -2,8 +2,13 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
 }
 .header--container {
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 40px;
   width: 100%;
   border-bottom: 1px solid #ccc;
@@ -14,11 +19,57 @@
   width: 250px;
   height: 40px;
   padding: 5px;
+  float: left;
+}
+.header--container .configuration-filter--form form {
+  position: relative;
 }
 .header--container .configuration-filter--form form input {
   width: 100%;
   height: 30px;
   border: none;
   background: #fff;
-  padding: 0 5px;
+  padding: 0 25px 0 5px;
+}
+.header--container .configuration-filter--form form i.fa {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 0;
+  top: 0;
+  text-align: center;
+  line-height: 28px;
+  color: #aaa;
+}
+.header--container .configuration--name {
+  float: left;
+  height: 40px;
+  padding: 0 0 0 5px;
+  line-height: 40px;
+  color: #666;
+}
+.configuration--list {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  width: 250px;
+  color: #666;
+}
+.configuration--list .list--header {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+}
+.configuration--list .list--items .item {
+  cursor: pointer;
+  height: 25px;
+  padding: 0 10px;
+  line-height: 25px;
+}
+.configuration--list .list--items .item.active {
+  font-weight: bold;
+}
+.configuration--container {
+  margin: 40px 0 0 250px;
 }
