@@ -4,3 +4,5 @@
 
 /var/cache/twig/*
 !/var/cache/twig/.gitkeep
+
+/config.user.php
