@@ -55,11 +55,15 @@ class JsonResponse
         return $this->send();
     }
 
+    /**
+     * @return string
+     */
     private function send()
     {
         header('Content-Type: application/json');
 
-        return json_encode($this->getResponse());
+        echo json_encode($this->getResponse());
+        exit();
     }
 
     private function getResponse()

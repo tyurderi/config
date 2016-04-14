@@ -3,9 +3,6 @@
 <head>
     <title>PHP Config</title>
 
-    <script type="text/javascript" src="{{ resource_url('js/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ resource_url('js/custom.bundle.js') }}"></script>
-
     <link rel="stylesheet" type="text/css" href="{{ resource_url('css/font-awesome.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ resource_url('css/style.css') }}" />
 </head>
@@ -26,13 +23,9 @@
 
 <div class="configuration--list">
     <div class="list--header">
-        All Configurations ({{ configurations|length }})
+        All Configurations (<span class="configuration--count">0</span>)
     </div>
-    <div class="list--items">
-        {% for config in configurations %}
-            <div class="item" data-configId="{{ config.id }}">{{ config.label }}</div>
-        {% endfor %}
-    </div>
+    <div class="list--items"></div>
 </div>
 
 <div class="configuration--container">
@@ -43,6 +36,9 @@
         Please select a configuration from the left side to start.
     </p>
 </div>
+
+<script type="text/javascript" src="{{ resource_url('js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ resource_url('js/custom.bundle.js') }}"></script>
 
 </body>
 </html>
