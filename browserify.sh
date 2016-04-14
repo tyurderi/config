@@ -1,3 +1,8 @@
 #!/bin/bash
 
-browserify web/resources/js/custom.js -o web/resources/js/custom.bundle.js
+path="web/resources/js"
+
+browserify \
+    $path/custom.js \
+    -o $path/custom.bundle.js \
+    --noparse=*.*
