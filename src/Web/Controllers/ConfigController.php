@@ -158,7 +158,7 @@ class ConfigController extends ControllerAbstract
         {
             $this->app->Modules()->DB()->delete($config['name'], $rowId)->execute();
 
-            $this->json->success();
+            return $this->json->success();
         }
 
         return $this->json->failure();
