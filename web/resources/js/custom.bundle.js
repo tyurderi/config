@@ -888,7 +888,7 @@ module.exports = require('class-js2').create({
     },
 
     $container: null,
-    $table: null,
+    table: null,
 
     url:
     {
@@ -927,7 +927,7 @@ module.exports = require('class-js2').create({
             limit: me.params.limit,
             offset: me.params.offset
         }, function(response) {
-            me.$table.addRows(response.data);
+            me.table.addRows(response.data);
         });
     },
 
@@ -935,18 +935,20 @@ module.exports = require('class-js2').create({
     {
         var me = this;
 
-        me.$table = new (require('local/table'));
-        me.$table.insert(me.$container);
+        me.table = new (require('local/table'));
+        me.table.insert(me.$container);
 
         me.loadColumns(function(columns) {
             columns.forEach(function(column) {
-                me.$table.addColumn(column.name, column.label);
+                me.table.addColumn(column.name, column.label);
             });
 
-            me.$table.addColumn('actions', 'Actions');
+            me.table.addColumn('actions', 'Actions');
 
             done();
         });
+
+        console.log(me.table);
     },
 
     loadColumns: function(done)
@@ -968,6 +970,7 @@ module.exports = require('class-js2').create({
 module.exports = require('class-js2').create({
 
     columns: [],
+    rows: [],
 
     $parent: null,
     $table: null,
@@ -985,6 +988,17 @@ module.exports = require('class-js2').create({
         me.$table.$body = $('<tbody />', {
 
         }).appendTo(me.$table);
+    },
+    reset: function()
+    {
+        var me = this;
+
+        me.columns = [];
+        me.rows    = [];
+        me.$parent = null;
+
+        me.$table.remove();
+        me.$table  = null;
     },
     insert: function($parent)
     {
@@ -1022,16 +1036,23 @@ module.exports = require('class-js2').create({
         var me   = this,
             $row = $('<tr />');
 
+        $row.appendTo(me.$table.$body);
+        $row.fields = [];
+        me.rows.push($row);
+
         me.columns.forEach(function($column) {
             if(row[$column.name])
             {
-                $('<td />', {
+                var $field = $('<td />', {
                     html: row[$column.name]
-                }).appendTo($row);
+                });
+
+                $field.appendTo($row);
+                $row.fields.push($field);
             }
         });
 
-        $row.appendTo(me.$table.$body);
+        return $row;
     },
     addRows: function(rows)
     {
