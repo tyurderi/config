@@ -22,10 +22,9 @@ class Application extends \TM\Config\Application
 
         $this->get('/', 'index.index');
 
-        $this->post('/search/config', 'search.config');
-
-        $this->get('/listing', 'listing.index');
-        $this->get('/listing/columns', 'listing.columns');
+        $this->get('/config/search', 'config.search');
+        $this->get('/config/load', 'config.load');
+        $this->get('/config/fetch', 'config.fetch');
     }
 
     public function run()

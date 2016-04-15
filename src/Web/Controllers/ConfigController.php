@@ -6,13 +6,72 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use TM\Config\Web\ControllerAbstract;
 
-class ListingController extends ControllerAbstract
+class ConfigController extends ControllerAbstract
 {
+
+    /**
+     * Loads general information for the specified config.
+     *
+     * @pattern /config/load
+     * @method  GET
+     *
+     * @param Request  $request
+     * @param Response $response
+     *
+     * @return string
+     */
+    public function loadAction(Request $request, Response $response)
+    {
+        $configId = (int) $request->getParam('id');
+
+        if($config = $this->loadConfig($configId))
+        {
+            return $this->json->success(array(
+                'config'    => $config,
+                'columns'   => $this->loadConfigColumns($configId)
+            ));
+        }
+
+        return $this->json->failure();
+    }
+
+    /**
+     * Action for filtering/listing configurations.
+     *
+     * @pattern /config/search
+     * @method  POST
+     *
+     * @param $request  Request
+     * @param $response Response
+     *
+     * @return string
+     */
+    public function searchAction(Request $request, Response $response)
+    {
+        $input = $request->getParsedBodyParam('input', '');
+
+        $query = $this->app->Modules()->DB()
+            ->from('config')
+            ->select(null)
+            ->select('id, label');
+
+        if(!empty($input))
+        {
+            $query = $query->where('label LIKE ?', '%' . $input . '%');
+        }
+
+        $records = $query->fetchAll();
+
+        return $this->json->success(array(
+            'data'  => $records,
+            'count' => count($records)
+        ));
+    }
 
     /**
      * Action to load items for the overview.
      *
-     * @pattern /listing
+     * @pattern /config/fetch
      * @method  GET
      *
      * @param $request  Request
@@ -20,7 +79,7 @@ class ListingController extends ControllerAbstract
      *
      * @return string
      */
-    public function indexAction(Request $request, Response $response)
+    public function fetchAction(Request $request, Response $response)
     {
         $configId = (int) $request->getParam('id');
         $orderBy  = $request->getParam('orderBy', 'id'); // ORDER BY
@@ -75,26 +134,6 @@ class ListingController extends ControllerAbstract
             'data'  => $records,
             'count' => count($records),
             'total' => $sql->count()
-        ));
-    }
-
-    /**
-     * Action to load the table (columns) for the specified configuration.
-     *
-     * @pattern /listing/columns
-     * @method  GET
-     *
-     * @param $request  Request
-     * @param $response Response
-     *
-     * @return string
-     */
-    public function columnsAction(Request $request, Response $response)
-    {
-        $configId = (int) $request->getParam('id');
-
-        return $this->json->success(array(
-            'data'  => $this->loadConfigColumns($configId)
         ));
     }
 

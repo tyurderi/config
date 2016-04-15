@@ -10,7 +10,7 @@
 
 <div class="header--container">
     <div class="configuration-filter--form">
-        <form method="POST" action="{{ url('search/config') }}">
+        <form method="POST" action="{{ url('config/search') }}">
             <input type="text" name="input" placeholder="Filter configurations..." autocomplete="off" />
 
             <i class="fa fa-search"></i>
@@ -29,8 +29,8 @@
 </div>
 
 <div class="configuration--container"
-    data-listingColumnsUrl="{{ url('listing/columns') }}"
-    data-listingUrl="{{ url('listing') }}">
+    data-loadUrl="{{ url('config/load') }}"
+    data-fetchUrl="{{ url('config/fetch') }}">
     <p>
         <strong>Welcome</strong>
     </p>

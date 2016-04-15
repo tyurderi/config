@@ -841,7 +841,7 @@ module.exports = function()
         var url  = $(this).attr('action'),
             data = $(this).serialize();
 
-        $.post(url, data, function(response) {
+        $.get(url, data, function(response) {
             $configurationList.empty();
 
             response.data.forEach(function(item) {
@@ -877,6 +877,8 @@ module.exports = function()
 module.exports = require('class-js2').create({
 
     configId: -1,
+    config: null,
+    columns: [],
 
     params:
     {
@@ -893,8 +895,8 @@ module.exports = require('class-js2').create({
 
     url:
     {
-        listing: '',
-        listingColumns: ''
+        load: '',
+        fetch: ''
     },
 
     constructor: function(configId)
@@ -904,8 +906,8 @@ module.exports = require('class-js2').create({
         me.configId   = configId;
         me.$container = $('.configuration--container');
 
-        me.url.listing        = me.$container.attr('data-listingUrl');
-        me.url.listingColumns = me.$container.attr('data-listingColumnsUrl');
+        me.url.load  = me.$container.attr('data-loadUrl');
+        me.url.fetch = me.$container.attr('data-fetchUrl');
     },
     /**
      * Starts everything up.
@@ -914,11 +916,17 @@ module.exports = require('class-js2').create({
     {
         var me = this;
 
-        me.$container.empty();
-        me.$container.append(me.createHeader());
-        me.$container.append(me.createActionBar());
+        $.get(me.url.load, { id: me.configId }, function(response) {
+            me.config  = response.config;
+            me.columns = response.columns;
 
-        me.createTable(me.loadData.bind(me));
+            me.$container.empty();
+            me.$container.append(me.createHeader());
+            me.$container.append(me.createActionBar());
+
+            me.createTable();
+            me.loadData();
+        });
     },
     createHeader: function()
     {
@@ -928,7 +936,7 @@ module.exports = require('class-js2').create({
             }),
             $header    = $('<div />', {
                 'class': 'header--label',
-                'html': 'Header Label'
+                'html': me.config.label
             }),
             $button    = $('<button />', {
                 'class': 'header--button',
@@ -984,7 +992,7 @@ module.exports = require('class-js2').create({
     {
         var me = this;
 
-        $.get(me.url.listing, {
+        $.get(me.url.fetch, {
             id: me.configId,
             orderBy: me.params.orderBy,
             order: me.params.order,
@@ -1020,36 +1028,18 @@ module.exports = require('class-js2').create({
     /**
      * Creates the basic dom table and adds it to $container
      */
-    createTable: function(done)
+    createTable: function()
     {
         var me = this;
 
         me.table = new (require('local/table'));
         me.table.insert(me.$container);
 
-        me.loadColumns(function(columns) {
-            columns.forEach(function(column) {
-                me.table.addColumn(column.name, column.label);
-            });
-
-            me.table.addColumn('actions', 'Actions');
-
-            done();
+        me.columns.forEach(function(column) {
+            me.table.addColumn(column.name, column.label);
         });
-    },
-    /**
-     * Load column data from remote server.
-     */
-    loadColumns: function(done)
-    {
-        var me = this;
 
-        $.get(me.url.listingColumns, {id: me.configId}, function(response) {
-            if(response.success)
-            {
-                done.apply(me, [response.data]);
-            }
-        });
+        me.table.addColumn('actions', 'Actions');
     }
 });
 },{"class-js2":2,"local/table":5}],5:[function(require,module,exports){
