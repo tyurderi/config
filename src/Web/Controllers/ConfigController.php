@@ -93,7 +93,8 @@ class ConfigController extends ControllerAbstract
 
         $sql      = $this->app->Modules()->DB()->from($config['name']);
 
-        $sql->select(null);
+        $sql->select(null)
+            ->select('id');
 
         $where = '';
         $params  = '';
@@ -135,6 +136,32 @@ class ConfigController extends ControllerAbstract
             'count' => count($records),
             'total' => $sql->count()
         ));
+    }
+
+    /**
+     * Action to remove a row from a configurations table.
+     *
+     * @pattern /config/fetch
+     * @method  GET
+     *
+     * @param $request  Request
+     * @param $response Response
+     *
+     * @return string
+     */
+    protected function deleteAction(Request $request, Response $response)
+    {
+        $configId = (int) $request->getParam('id');
+        $rowId    = (int) $request->getParam('rowId');
+
+        if($config = $this->loadConfig($configId))
+        {
+            $this->app->Modules()->DB()->delete($config['name'], $rowId)->execute();
+
+            $this->json->success();
+        }
+
+        return $this->json->failure();
     }
 
     protected function loadConfig($configId)

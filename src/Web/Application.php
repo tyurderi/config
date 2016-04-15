@@ -25,6 +25,7 @@ class Application extends \TM\Config\Application
         $this->get('/config/search', 'config.search');
         $this->get('/config/load', 'config.load');
         $this->get('/config/fetch', 'config.fetch');
+        $this->get('/config/delete', 'config.delete');
     }
 
     public function run()
