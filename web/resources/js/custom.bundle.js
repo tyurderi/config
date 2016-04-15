@@ -862,7 +862,13 @@ module.exports = function()
                      *
                      * loader.load();
                      */
-                    (new (require('local/configuration/loader'))(item.id)).load();
+                    var ConfigurationLoader = require('local/configuration/loader'),
+                             loader              = new ConfigurationLoader(item.id);
+
+                     loader.load();
+
+                    window.loader = loader;
+                    //(new (require('local/configuration/loader'))(item.id)).load();
                 });
             });
 
@@ -947,8 +953,6 @@ module.exports = require('class-js2').create({
 
             done();
         });
-
-        console.log(me.table);
     },
 
     loadColumns: function(done)
@@ -979,7 +983,8 @@ module.exports = require('class-js2').create({
     {
         var me = this;
 
-        me.$table = $('<table />');
+        me.columns = [];
+        me.$table  = $('<table />');
 
         me.$table.$head = $('<thead />', {
             html: $('<tr />')
