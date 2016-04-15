@@ -959,8 +959,17 @@ module.exports = require('class-js2').create({
                 'html': 'Total 0 records'
             });
 
-        $input.on('change', function() {
-            // search everything action
+        var timeout = null;
+        $input.on('change input', function() {
+            if(timeout)
+            {
+                clearTimeout(timeout);
+            }
+
+            timeout = setTimeout(function() {
+                me.params.filterBy = $input.val();
+                me.loadData();
+            }, 125);
         });
 
         $container.html([$input, $statusBar]);
@@ -984,6 +993,7 @@ module.exports = require('class-js2').create({
             offset: me.params.offset
         }, function(response) {
             me.$statusBar.html('Total ' + response.count + ' records');
+            me.table.clearRows();
             response.data.forEach(me.processRow.bind(me));
         });
     },
@@ -1141,6 +1151,13 @@ module.exports = require('class-js2').create({
         rows.forEach(function(row) {
             me.addRow(row);
         });
+    },
+    clearRows: function()
+    {
+        var me = this;
+
+        me.rows = [];
+        me.$table.$body.empty();
     }
 });
 },{"class-js2":2}]},{},[1]);
