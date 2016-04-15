@@ -878,7 +878,8 @@ module.exports = require('class-js2').create({
 
     configId: -1,
 
-    params: {
+    params:
+    {
         orderBy: 'id',
         order: 'DESC',
         filterBy: '',
@@ -889,7 +890,8 @@ module.exports = require('class-js2').create({
     $container: null,
     $table: null,
 
-    url: {
+    url:
+    {
         listing: '',
         listingColumns: ''
     },
@@ -925,7 +927,7 @@ module.exports = require('class-js2').create({
             limit: me.params.limit,
             offset: me.params.offset
         }, function(response) {
-            console.log(response);
+            me.$table.addRows(response.data);
         });
     },
 
@@ -1014,6 +1016,30 @@ module.exports = require('class-js2').create({
                 return this.columns[i];
             }
         }
+    },
+    addRow: function(row)
+    {
+        var me   = this,
+            $row = $('<tr />');
+
+        me.columns.forEach(function($column) {
+            if(row[$column.name])
+            {
+                $('<td />', {
+                    html: row[$column.name]
+                }).appendTo($row);
+            }
+        });
+
+        $row.appendTo(me.$table.$body);
+    },
+    addRows: function(rows)
+    {
+        var me = this;
+
+        rows.forEach(function(row) {
+            me.addRow(row);
+        });
     }
 });
 },{"class-js2":2}]},{},[1]);
