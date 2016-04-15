@@ -104,7 +104,7 @@
 .configuration--container .config--action-bar--container .search--input {
   height: 100%;
   line-height: 40px;
-  width: 90%;
+  width: 50%;
   border: none;
   text-indent: 10px;
 }
