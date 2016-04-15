@@ -23,6 +23,9 @@ class Application extends \TM\Config\Application
         $this->get('/', 'index.index');
 
         $this->post('/search/config', 'search.config');
+
+        $this->get('/listing', 'listing.index');
+        $this->get('/listing/columns', 'listing.columns');
     }
 
     public function run()

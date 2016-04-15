@@ -22,8 +22,6 @@ class IndexController extends ControllerAbstract
      */
     public function indexAction(Request $request, Response $response)
     {
-
-
         return $this->view->pick('index/index')->finish();
     }
 
