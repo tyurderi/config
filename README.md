@@ -27,4 +27,4 @@ echo $name->getName(), PHP_EOL;
 ```
 
 # Result
-![Result Image]
+![Result Image](https://raw.githubusercontent.com/tyurderi/config/master/docs/screenshot.png)
