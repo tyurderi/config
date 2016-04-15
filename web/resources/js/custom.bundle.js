@@ -862,13 +862,7 @@ module.exports = function()
                      *
                      * loader.load();
                      */
-                    var ConfigurationLoader = require('local/configuration/loader'),
-                             loader              = new ConfigurationLoader(item.id);
-
-                     loader.load();
-
-                    window.loader = loader;
-                    //(new (require('local/configuration/loader'))(item.id)).load();
+                    (new (require('local/configuration/loader'))(item.id)).load();
                 });
             });
 
@@ -895,6 +889,7 @@ module.exports = require('class-js2').create({
 
     $container: null,
     table: null,
+    $statusBar: null,
 
     url:
     {
@@ -912,15 +907,70 @@ module.exports = require('class-js2').create({
         me.url.listing        = me.$container.attr('data-listingUrl');
         me.url.listingColumns = me.$container.attr('data-listingColumnsUrl');
     },
+    /**
+     * Starts everything up.
+     */
     load: function()
     {
         var me = this;
 
         me.$container.empty();
+        me.$container.append(me.createHeader());
+        me.$container.append(me.createActionBar());
 
         me.createTable(me.loadData.bind(me));
     },
+    createHeader: function()
+    {
+        var me         = this,
+            $container = $('<div />', {
+                'class': 'config--header--container'
+            }),
+            $header    = $('<div />', {
+                'class': 'header--label',
+                'html': 'Header Label'
+            }),
+            $button    = $('<button />', {
+                'class': 'header--button',
+                'html': 'Create'
+            });
 
+        $button.on('click', function() {
+            // create action
+        });
+
+        $container.html([$header, $button]);
+
+        return $container;
+    },
+    createActionBar: function()
+    {
+        var me = this,
+            $container = $('<div />', {
+                'class': 'config--action-bar--container'
+            }),
+            $input     = $('<input />', {
+                'class': 'search--input',
+                'name': 'search_everything',
+                'placeholder': 'Search everything...'
+            }),
+            $statusBar = $('<div />', {
+                'class': 'status--bar',
+                'html': 'Total 0 records'
+            });
+
+        $input.on('change', function() {
+            // search everything action
+        });
+
+        $container.html([$input, $statusBar]);
+        me.$statusBar = $statusBar;
+
+        return $container;
+    },
+    /**
+     * Load configurations data and insert it into the table.
+     */
     loadData: function()
     {
         var me = this;
@@ -933,10 +983,33 @@ module.exports = require('class-js2').create({
             limit: me.params.limit,
             offset: me.params.offset
         }, function(response) {
-            me.table.addRows(response.data);
+            me.$statusBar.html('Total ' + response.count + ' records');
+            response.data.forEach(me.processRow.bind(me));
         });
     },
+    /**
+     * Adds a new row to the table and gives it some functionality.
+     */
+    processRow: function(row)
+    {
+        var me      = this,
+            $edit   = $('<i />', { 'class': 'fa fa-edit' }),
+            $remove = $('<i />', { 'class': 'fa fa-remove' });
 
+        $edit.on('click', function() {
+            // edit action
+        });
+
+        $remove.on('click', function() {
+            // remove action
+        });
+
+        row.actions = [$edit, $remove];
+        me.table.addRow(row);
+    },
+    /**
+     * Creates the basic dom table and adds it to $container
+     */
     createTable: function(done)
     {
         var me = this;
@@ -954,7 +1027,9 @@ module.exports = require('class-js2').create({
             done();
         });
     },
-
+    /**
+     * Load column data from remote server.
+     */
     loadColumns: function(done)
     {
         var me = this;
