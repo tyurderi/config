@@ -75,3 +75,41 @@
   padding: 5px;
   color: #666;
 }
+.configuration--container .config--header--container {
+  height: 30px;
+  border-bottom: 1px solid #ccc;
+}
+.configuration--container .config--header--container .header--label {
+  font-size: 18px;
+  font-weight: 100;
+  float: left;
+  height: 100%;
+  line-height: 30px;
+}
+.configuration--container .config--header--container .header--button {
+  float: left;
+  display: block;
+  margin: 2px 0 0 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+  height: 24px;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0 5px;
+}
+.configuration--container .config--action-bar--container {
+  height: 40px;
+  border-bottom: 1px solid #ccc;
+}
+.configuration--container .config--action-bar--container .search--input {
+  height: 100%;
+  line-height: 40px;
+  width: 90%;
+  border: none;
+  text-indent: 10px;
+}
+.configuration--container .config--action-bar--container .status--bar {
+  float: right;
+  height: 100%;
+  line-height: 40px;
+}
