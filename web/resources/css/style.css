@@ -113,3 +113,21 @@
   height: 100%;
   line-height: 40px;
 }
+.configuration--container table {
+  width: 100%;
+  padding: 10px;
+}
+.configuration--container table th {
+  text-align: left;
+  padding: 0 0 5px 0;
+}
+.configuration--container table th:last-child {
+  width: 50px;
+}
+.configuration--container table td {
+  padding: 3px 0;
+}
+.configuration--container table td i.fa {
+  padding: 0 5px 0 0;
+  cursor: pointer;
+}
