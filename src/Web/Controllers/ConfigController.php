@@ -172,7 +172,7 @@ class ConfigController extends ControllerAbstract
      *
      * @return string
      */
-    protected function deleteAction(Request $request, Response $response)
+    public function deleteAction(Request $request, Response $response)
     {
         $configId = (int) $request->getParam('id');
         $rowId    = (int) $request->getParam('rowId');
