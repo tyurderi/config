@@ -114,7 +114,7 @@ class ConfigController extends ControllerAbstract
         $total    = $sql->count();
 
         /**
-         * Prepare to load childen configuration records.
+         * Prepare to load children configuration records.
          */
         /*if($children = $this->app->Modules()->DB()->from('config')->where('parent_id', $configId)->fetchAll())
         {
