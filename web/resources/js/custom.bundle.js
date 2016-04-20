@@ -2,11 +2,13 @@
 (function($, window, require, undefined) {
     "use strict";
 
+    window.Class = require('class-js2');
+
     // initialize configuration filter
     require('local/configuration/filter')();
 
 })(jQuery, window, require);
-},{"local/configuration/filter":3}],2:[function(require,module,exports){
+},{"class-js2":2,"local/configuration/filter":3}],2:[function(require,module,exports){
 /*!
  * Class.js
  * Version 0.6.0
@@ -874,7 +876,7 @@ module.exports = function()
     $configurationForm.submit();
 };
 },{"local/configuration/loader":4}],4:[function(require,module,exports){
-module.exports = require('class-js2').create({
+module.exports = Class.create({
 
     configId: -1,
     config: null,
@@ -1052,11 +1054,11 @@ module.exports = require('class-js2').create({
         me.table.addColumn('actions', 'Actions');
     }
 });
-},{"class-js2":2,"local/table":5}],5:[function(require,module,exports){
+},{"local/table":5}],5:[function(require,module,exports){
 /**
  * Component to build and modify simple DOM tables.
  */
-module.exports = require('class-js2').create({
+module.exports = Class.create({
 
     columns: [],
     rows: [],
@@ -1160,4 +1162,4 @@ module.exports = require('class-js2').create({
         me.$table.$body.empty();
     }
 });
-},{"class-js2":2}]},{},[1]);
+},{}]},{},[1]);
