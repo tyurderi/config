@@ -4,10 +4,39 @@ namespace TM\Config\Web\Controllers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use TM\Config\Components\Querier;
 use TM\Config\Web\ControllerAbstract;
 
 class ConfigController extends ControllerAbstract
 {
+
+    public function createQuerier($request, $response)
+    {
+        $querier = new Querier($request, $response);
+        $querier->setDefaultQuery('config');
+
+        $querier->add('config', function($configId) {
+            return $this->app->Modules()->DB()->from('config', $configId)->fetch();
+        });
+
+        $querier->add('columns', function($configId) {
+            $sql = $this->app->Modules()->DB()->from('config_field cf');
+
+            $sql->select(null)
+                ->select('cf.id, cf.label, cf.name')
+                ->leftJoin('config_column cc ON cc.config_id = cf.id')
+                ->where('cc.id IS NOT NULL')
+                ->where('cf.config_id', $configId);
+
+            return $sql->fetchAll();
+        });
+
+        $querier->add('fields', function($configId) {
+            return $this->app->Modules()->DB()->from('config_field')->where('config_id', $configId)->fetchAll();
+        });
+
+        return $querier;
+    }
 
     /**
      * Loads basic config data. Optionally with config columns and fields.
@@ -23,69 +52,9 @@ class ConfigController extends ControllerAbstract
     public function loadAction(Request $request, Response $response)
     {
         $configId = (int) $request->getParam('id');
-        $with     = $request->getParam('with', array());
-        $only     = $request->getParam('only', array());
+        $querier  = $this->createQuerier($request, $response);
 
-        if(!empty($only))
-        {
-            $data = array();
-            if($only === 'config')
-            {
-                $data[$only] = $this->loadConfig($configId);
-            }
-            else if($only === 'columns')
-            {
-                $data[$only] = $this->loadColumns($configId);
-            }
-            else if($only === 'fields')
-            {
-                $data[$only] = $this->loadFields($configId);
-            }
-
-            return $this->json->success($data);
-        }
-
-        if($config = $this->loadConfig($configId))
-        {
-            $data = array('config' => $config);
-
-            if(in_array('columns', $with))
-            {
-                $data['columns'] = $this->loadColumns($configId);
-            }
-
-            if(in_array('fields', $with))
-            {
-                $data['fields'] = $this->loadFields($configId);
-            }
-
-            return $this->json->success($data);
-        }
-
-        return $this->json->failure();
-    }
-
-    protected function loadConfig($configId)
-    {
-        return $this->app->Modules()->DB()->from('config', $configId)->fetch();
-    }
-
-    protected function loadColumns($configId)
-    {
-        $sql = $this->app->Modules()->DB()->from('config_field cf');
-
-        $sql->select(null)
-            ->select('cf.id, cf.label, cf.name')
-            ->leftJoin('config_column cc ON cc.config_id = cf.id')
-            ->where('cc.id IS NOT NULL')
-            ->where('cf.config_id', $configId);
-
-        return $sql->fetchAll();
-    }
-
-    protected function loadFields($configId)
-    {
-        return $this->app->Modules()->DB()->from('config_field')->where('config_id', $configId)->fetchAll();
+        return $this->json->success($querier->execute($configId));
     }
 
     /**
@@ -141,8 +110,9 @@ class ConfigController extends ControllerAbstract
         $limit    = (int) $request->getParam('limit', 15);
         $offset   = (int) $request->getParam('offset', 0);
 
-        $config   = $this->loadConfig($configId);
-        $columns  = $this->loadColumns($configId);
+        $querier  = $this->createQuerier($request, $response);
+        $config   = $querier->query('config', array($configId));
+        $columns  = $querier->query('columns', array($configId));
 
         $sql      = $this->app->Modules()->DB()->from($config['name']);
 
