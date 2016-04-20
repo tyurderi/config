@@ -75,6 +75,20 @@
   padding: 5px;
   color: #666;
 }
+.configuration--container .config--form label {
+  display: block;
+  margin: 10px 0 0 0;
+}
+.configuration--container .config--form input,
+.configuration--container .config--form textarea {
+  width: 100%;
+  border: 1px solid #aaa;
+  padding: 5px;
+}
+.configuration--container .config--form input:focus,
+.configuration--container .config--form textarea:focus {
+  border: 1px solid #3498db;
+}
 .configuration--container .config--header--container {
   height: 30px;
   border-bottom: 1px solid #ccc;
