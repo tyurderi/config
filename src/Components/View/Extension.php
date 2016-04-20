@@ -35,7 +35,7 @@ class Extension extends \Twig_Extension
         return $result;
     }
 
-    public function urlFunction($target)
+    public function urlFunction($target = '')
     {
         /** @var \Slim\Http\Request $request */
         $request = $this->app->getSlim()->getContainer()->get('request');

@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{ resource_url('css/font-awesome.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ resource_url('css/style.css') }}" />
 </head>
-<body>
+<body data-baseUrl="{{ url() }}">
 
 <div class="header--container">
     <div class="configuration-filter--form">
@@ -28,11 +28,7 @@
     <div class="list--items"></div>
 </div>
 
-<div class="configuration--container"
-    data-loadUrl="{{ url('config/load') }}"
-    data-fetchUrl="{{ url('config/fetch') }}"
-    data-deleteUrl="{{ url('config/delete') }}"
-    data-loadFieldsUrl="{{ url('config/loadFields') }}">
+<div class="configuration--container">
     <p>
         <strong>Welcome</strong>
     </p>
