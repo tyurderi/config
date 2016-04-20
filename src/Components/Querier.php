@@ -58,7 +58,7 @@ class Querier
             }
         }
 
-        if(!empty($this->defaultQuery))
+        if(!empty($this->defaultQuery) && empty($only))
         {
             $data[$this->defaultQuery] = $this->query($this->defaultQuery, func_get_args());
         }
