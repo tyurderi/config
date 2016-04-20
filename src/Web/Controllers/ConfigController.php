@@ -111,11 +111,26 @@ class ConfigController extends ControllerAbstract
         $sql      = $this->app->Modules()->DB()->from($config['name']);
         $sql      = $this->filterQuery($request, $sql, $columns);
         $records  = $sql->fetchAll();
+        $total    = $sql->count();
+
+        /**
+         * Prepare to load childen configuration records.
+         */
+        /*if($children = $this->app->Modules()->DB()->from('config')->where('parent_id', $configId)->fetchAll())
+        {
+            foreach($children as $child)
+            {
+                $childColumns = $querier->query('columns', array($child['id']));
+                $childRecords = $this->app->Modules()->DB()->from($child['name'])->fetchAll();
+
+
+            }
+        }*/
 
         return $this->json->success(array(
             'data'  => $records,
             'count' => count($records),
-            'total' => $sql->count()
+            'total' => $total
         ));
     }
 
