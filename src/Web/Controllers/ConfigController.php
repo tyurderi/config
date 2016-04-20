@@ -104,17 +104,28 @@ class ConfigController extends ControllerAbstract
     public function fetchAction(Request $request, Response $response)
     {
         $configId = (int) $request->getParam('id');
-        $orderBy  = $request->getParam('orderBy', 'id'); // ORDER BY
-        $order    = $request->getParam('order', 'DESC'); //           DESC|ASC
-        $filterBy = $request->getParam('filterBy');      // WHERE x LIKE %x%
-        $limit    = (int) $request->getParam('limit', 15);
-        $offset   = (int) $request->getParam('offset', 0);
-
         $querier  = $this->createQuerier($request, $response);
         $config   = $querier->query('config', array($configId));
         $columns  = $querier->query('columns', array($configId));
 
         $sql      = $this->app->Modules()->DB()->from($config['name']);
+        $sql      = $this->filterQuery($request, $sql, $columns);
+        $records  = $sql->fetchAll();
+
+        return $this->json->success(array(
+            'data'  => $records,
+            'count' => count($records),
+            'total' => $sql->count()
+        ));
+    }
+
+    protected function filterQuery(Request $request, \SelectQuery $sql, $columns)
+    {
+        $orderBy  = $request->getParam('orderBy', 'id'); // ORDER BY
+        $order    = $request->getParam('order', 'DESC'); //           DESC|ASC
+        $filterBy = $request->getParam('filterBy');      // WHERE x LIKE %x%
+        $limit    = (int) $request->getParam('limit', 15);
+        $offset   = (int) $request->getParam('offset', 0);
 
         $sql->select(null)
             ->select('id');
@@ -152,13 +163,7 @@ class ConfigController extends ControllerAbstract
             ->limit($limit)
             ->offset($offset);
 
-        $records = $sql->fetchAll();
-
-        return $this->json->success(array(
-            'data'  => $records,
-            'count' => count($records),
-            'total' => $sql->count()
-        ));
+        return $sql;
     }
 
     /**
