@@ -8,6 +8,8 @@
 
     // central location to load everything from database
     window.EntityManager = new (require('local/entity/manager'))();
+    window.Querier       = window.EntityManager.getQuerier();
+    
     window.FormBuilder   = new (require('local/form_builder'))();
 
     // this class is required to make the entire application work
