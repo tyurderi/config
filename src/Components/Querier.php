@@ -42,25 +42,26 @@ class Querier
 
     public function execute($arguments)
     {
-        $only = $this->request->getParam('only', '');
-        $with = $this->request->getParam('with', array());
-        $data = array();
+        $only      = $this->request->getParam('only', '');
+        $with      = $this->request->getParam('with', array());
+        $data      = array();
+        $arguments = func_get_args();
 
         if(!empty($only))
         {
-            $data[$only] = $this->query($only, func_get_args());
+            $data[$only] = $this->query($only, $arguments);
         }
         else
         {
             foreach($with as $key)
             {
-                $data[$key] = $this->query($key, func_get_args());
+                $data[$key] = $this->query($key, $arguments);
             }
         }
 
         if(!empty($this->defaultQuery) && empty($only))
         {
-            $data[$this->defaultQuery] = $this->query($this->defaultQuery, func_get_args());
+            $data[$this->defaultQuery] = $this->query($this->defaultQuery, $arguments);
         }
 
         return $data;
