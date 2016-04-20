@@ -209,7 +209,7 @@ class ConfigController extends ControllerAbstract
         if($config = $querier->query('config', array($configId)))
         {
             $fields    = $querier->query('fields', array($configId));
-            $_data     = array();
+            $values    = array();
             $tableName = $config['name'];
 
             foreach($fields as $field)
@@ -217,17 +217,17 @@ class ConfigController extends ControllerAbstract
                 $fieldName = $field['name'];
                 if(isset($data[$fieldName]))
                 {
-                    $_data[$fieldName] = $data[$fieldName];
+                    $values[$fieldName] = $data[$fieldName];
                 }
             }
 
             if($this->app->Modules()->DB()->from($tableName, $rowId))
             {
-                $this->app->Modules()->DB()->update($tableName, $_data, $rowId);
+                $this->app->Modules()->DB()->update($tableName, $values, $rowId);
             }
             else
             {
-                $this->app->Modules()->DB()->insert($tableName, $_data);
+                $this->app->Modules()->DB()->insert($tableName, $values);
             }
 
             return $this->json->success();
