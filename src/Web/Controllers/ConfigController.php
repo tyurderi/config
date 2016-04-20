@@ -23,17 +23,38 @@ class ConfigController extends ControllerAbstract
     public function loadAction(Request $request, Response $response)
     {
         $configId = (int) $request->getParam('id');
+        $with     = $request->getParam('with', array());
+        $only     = $request->getParam('only', array());
+
+        if(!empty($only))
+        {
+            $data = array();
+            if($only === 'config')
+            {
+                $data[$only] = $this->loadConfig($configId);
+            }
+            else if($only === 'columns')
+            {
+                $data[$only] = $this->loadColumns($configId);
+            }
+            else if($only === 'fields')
+            {
+                $data[$only] = $this->loadFields($configId);
+            }
+
+            return $this->json->success($data);
+        }
 
         if($config = $this->loadConfig($configId))
         {
             $data = array('config' => $config);
 
-            if($request->getParam('columns') !== null)
+            if(in_array('columns', $with))
             {
                 $data['columns'] = $this->loadColumns($configId);
             }
 
-            if($request->getParam('fields') !== null)
+            if(in_array('fields', $with))
             {
                 $data['fields'] = $this->loadFields($configId);
             }
