@@ -202,7 +202,7 @@ class ConfigController extends ControllerAbstract
     public function saveAction(Request $request, Response $response)
     {
         $configId = (int) $request->getParam('id');
-        $rowId    = (int) $request->getParam('rowId');
+        $rowId    = (int) $request->getParam('rowId', -1);
         $data     = $request->getParam('data');
         $querier  = $this->createQuerier($request, $response);
 
@@ -221,13 +221,13 @@ class ConfigController extends ControllerAbstract
                 }
             }
 
-            if($this->app->Modules()->DB()->from($tableName, $rowId))
+            if($this->app->Modules()->DB()->from($tableName, $rowId)->fetch())
             {
-                $this->app->Modules()->DB()->update($tableName, $values, $rowId);
+                $this->app->Modules()->DB()->update($tableName, $values, $rowId)->execute();
             }
             else
             {
-                $this->app->Modules()->DB()->insert($tableName, $values);
+                $this->app->Modules()->DB()->insert($tableName, $values)->execute();
             }
 
             return $this->json->success();
