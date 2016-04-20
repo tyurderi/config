@@ -58,6 +58,49 @@ class ConfigController extends ControllerAbstract
     }
 
     /**
+     * Action to load a specific record of a configuration with all its children configuration records.
+     *
+     * @pattern /config/loadRecord
+     * @method  GET
+     *
+     * @param Request  $request
+     * @param Response $response
+     *
+     * @return string
+     */
+    public function loadRecordAction(Request $request, Response $response)
+    {
+        $configId = (int) $request->getParam('id');
+        $rowId    = (int) $request->getParam('rowId');
+        $querier  = $this->createQuerier($request, $response);
+
+        if($config = $querier->query('config', array($configId)))
+        {
+            $record = $this->app->Modules()->DB()->from($config['name'], $rowId)->fetch();
+
+            if($children = $this->app->Modules()->DB()->from('config')->where('parent_id', $configId)->fetchAll())
+            {
+                foreach($children as $child)
+                {
+                    $childColumns = $querier->query('columns', array($child['id']));
+                    $childRecords = $this->app->Modules()->DB()->from($child['name'])->fetchAll();
+
+                    $record['children'][$child['name']] = array(
+                        'columns'   => $childColumns,
+                        'records'   => $childRecords
+                    );
+                }
+            }
+
+            $this->json->success(array(
+                'record'    => $record
+            ));
+        }
+
+        return $this->json->failure();
+    }
+
+    /**
      * Action for filtering/listing configurations.
      *
      * @pattern /config/search
@@ -112,20 +155,6 @@ class ConfigController extends ControllerAbstract
         $sql      = $this->filterQuery($request, $sql, $columns);
         $records  = $sql->fetchAll();
         $total    = $sql->count();
-
-        /**
-         * Prepare to load children configuration records.
-         */
-        /*if($children = $this->app->Modules()->DB()->from('config')->where('parent_id', $configId)->fetchAll())
-        {
-            foreach($children as $child)
-            {
-                $childColumns = $querier->query('columns', array($child['id']));
-                $childRecords = $this->app->Modules()->DB()->from($child['name'])->fetchAll();
-
-
-            }
-        }*/
 
         return $this->json->success(array(
             'data'  => $records,

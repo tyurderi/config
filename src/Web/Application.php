@@ -28,6 +28,7 @@ class Application extends \TM\Config\Application
         $this->get('/config/delete', 'config.delete');
         $this->get('/config/loadFields', 'config.loadFields');
         $this->get('/config/save', 'config.save');
+        $this->get('/config/loadRecord', 'config.loadRecord');
     }
 
     public function run()
