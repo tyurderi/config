@@ -36,6 +36,28 @@ class ConfigController extends ControllerAbstract
     }
 
     /**
+     * Loads all fields for the configuration.
+     *
+     * @pattern /config/loadFields
+     * @method  GET
+     *
+     * @param Request  $request
+     * @param Response $response
+     *
+     * @return string
+     */
+    public function loadFieldsAction(Request $request, Response $response)
+    {
+        $configId = (int) $request->getParam('id');
+        $sql      = $this->app->Modules()->DB()->from('config_field');
+        $fields   = $sql->where('config_id', $configId)->fetchAll();
+
+        return $this->json->success(array(
+            'data' => $fields
+        ));
+    }
+
+    /**
      * Action for filtering/listing configurations.
      *
      * @pattern /config/search
