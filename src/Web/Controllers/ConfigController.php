@@ -10,7 +10,7 @@ class ConfigController extends ControllerAbstract
 {
 
     /**
-     * Loads general information for the specified config.
+     * Loads basic config data. Optionally with config columns and fields.
      *
      * @pattern /config/load
      * @method  GET
@@ -26,35 +26,45 @@ class ConfigController extends ControllerAbstract
 
         if($config = $this->loadConfig($configId))
         {
-            return $this->json->success(array(
-                'config'    => $config,
-                'columns'   => $this->loadConfigColumns($configId)
-            ));
+            $data = array('config' => $config);
+
+            if($request->getParam('columns') !== null)
+            {
+                $data['columns'] = $this->loadColumns($configId);
+            }
+
+            if($request->getParam('fields') !== null)
+            {
+                $data['fields'] = $this->loadFields($configId);
+            }
+
+            return $this->json->success($data);
         }
 
         return $this->json->failure();
     }
 
-    /**
-     * Loads all fields for the configuration.
-     *
-     * @pattern /config/loadFields
-     * @method  GET
-     *
-     * @param Request  $request
-     * @param Response $response
-     *
-     * @return string
-     */
-    public function loadFieldsAction(Request $request, Response $response)
+    protected function loadConfig($configId)
     {
-        $configId = (int) $request->getParam('id');
-        $sql      = $this->app->Modules()->DB()->from('config_field');
-        $fields   = $sql->where('config_id', $configId)->fetchAll();
+        return $this->app->Modules()->DB()->from('config', $configId)->fetch();
+    }
 
-        return $this->json->success(array(
-            'data' => $fields
-        ));
+    protected function loadColumns($configId)
+    {
+        $sql = $this->app->Modules()->DB()->from('config_field cf');
+
+        $sql->select(null)
+            ->select('cf.id, cf.label, cf.name')
+            ->leftJoin('config_column cc ON cc.config_id = cf.id')
+            ->where('cc.id IS NOT NULL')
+            ->where('cf.config_id', $configId);
+
+        return $sql->fetchAll();
+    }
+
+    protected function loadFields($configId)
+    {
+        return $this->app->Modules()->DB()->from('config_field')->where('config_id', $configId)->fetchAll();
     }
 
     /**
@@ -111,7 +121,7 @@ class ConfigController extends ControllerAbstract
         $offset   = (int) $request->getParam('offset', 0);
 
         $config   = $this->loadConfig($configId);
-        $columns  = $this->loadConfigColumns($configId);
+        $columns  = $this->loadColumns($configId);
 
         $sql      = $this->app->Modules()->DB()->from($config['name']);
 
@@ -184,24 +194,6 @@ class ConfigController extends ControllerAbstract
         }
 
         return $this->json->failure();
-    }
-
-    protected function loadConfig($configId)
-    {
-        return $this->app->Modules()->DB()->from('config', $configId)->fetch();
-    }
-
-    protected function loadConfigColumns($configId)
-    {
-        $sql = $this->app->Modules()->DB()->from('config_field cf');
-
-        $sql->select(null)
-            ->select('cf.id, cf.label, cf.name')
-            ->leftJoin('config_column cc ON cc.config_id = cf.id')
-            ->where('cc.id IS NOT NULL')
-            ->where('cf.config_id', $configId);
-
-        return $sql->fetchAll();
     }
 
 }

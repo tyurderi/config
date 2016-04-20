@@ -6,9 +6,11 @@
     window.JCache        = require('local/jcache');
     window.__url         = require('local/url_resolver');
 
-    JCache.set('form_builder', new (require('local/form_builder')));
+    // central location to load everything from database
+    window.EntityManager = new (require('local/entity/manager'))();
+    window.FormBuilder   = new (require('local/form_builder'))();
 
-    // initialize configuration filter
-    require('local/configuration/filter')();
+    // this class is required to make the entire application work
+    window.ConfigFilter  = new (require('local/configuration/filter'))();
 
 })(jQuery, window, require);
