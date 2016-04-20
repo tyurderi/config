@@ -6,3 +6,4 @@
 !/var/cache/twig/.gitkeep
 
 /config.user.php
+*bundle.js
