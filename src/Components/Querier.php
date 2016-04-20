@@ -5,6 +5,13 @@ namespace TM\Config\Components;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
+/**
+ * Class Querier
+ *
+ * This package is designed to work with a client side script to fetch associated data.
+ *
+ * @package TM\Config\Components
+ */
 class Querier
 {
 
