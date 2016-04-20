@@ -188,4 +188,52 @@ class ConfigController extends ControllerAbstract
         return $this->json->failure();
     }
 
+    /**
+     * Action to create or save configuration table rows.
+     *
+     * @pattern /config/save
+     * @method  GET
+     *
+     * @param $request  Request
+     * @param $response Response
+     *
+     * @return string
+     */
+    public function saveAction(Request $request, Response $response)
+    {
+        $configId = (int) $request->getParam('id');
+        $rowId    = (int) $request->getParam('rowId');
+        $data     = $request->getParam('data');
+        $querier  = $this->createQuerier($request, $response);
+
+        if($config = $querier->query('config', array($configId)))
+        {
+            $fields    = $querier->query('fields', array($configId));
+            $_data     = array();
+            $tableName = $config['name'];
+
+            foreach($fields as $field)
+            {
+                $fieldName = $field['name'];
+                if(isset($data[$fieldName]))
+                {
+                    $_data[$fieldName] = $data[$fieldName];
+                }
+            }
+
+            if($this->app->Modules()->DB()->from($tableName, $rowId))
+            {
+                $this->app->Modules()->DB()->update($tableName, $_data, $rowId);
+            }
+            else
+            {
+                $this->app->Modules()->DB()->insert($tableName, $_data);
+            }
+
+            return $this->json->success();
+        }
+
+        return $this->json->failure();
+    }
+
 }
