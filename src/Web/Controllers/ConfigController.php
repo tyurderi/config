@@ -176,8 +176,9 @@ class ConfigController extends ControllerAbstract
     {
         $configId = (int) $request->getParam('id');
         $rowId    = (int) $request->getParam('rowId');
+        $querier  = $this->createQuerier($request, $response);
 
-        if($config = $this->loadConfig($configId))
+        if($config = $querier->query('config', array($configId)))
         {
             $this->app->Modules()->DB()->delete($config['name'], $rowId)->execute();
 
