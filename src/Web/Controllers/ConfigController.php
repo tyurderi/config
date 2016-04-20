@@ -10,7 +10,7 @@ use TM\Config\Web\ControllerAbstract;
 class ConfigController extends ControllerAbstract
 {
 
-    public function createQuerier($request, $response)
+    public function createQuerier(Request $request, Response $response)
     {
         $querier = new Querier($request, $response);
         $querier->setDefaultQuery('config');
