@@ -53,8 +53,10 @@ class ConfigController extends ControllerAbstract
     {
         $configId = (int) $request->getParam('id');
         $querier  = $this->createQuerier($request, $response);
+        
+        $this->json->add($querier->execute($configId));
 
-        return $this->json->success($querier->execute($configId));
+        return $this->json->success();
     }
 
     /**
@@ -91,10 +93,8 @@ class ConfigController extends ControllerAbstract
                     );
                 }
             }
-
-            $this->json->success(array(
-                'record'    => $record
-            ));
+            
+            return $this->json->add('record', $record)->success();
         }
 
         return $this->json->failure();
@@ -127,10 +127,10 @@ class ConfigController extends ControllerAbstract
 
         $records = $query->fetchAll();
 
-        return $this->json->success(array(
+        return $this->json->add(array(
             'data'  => $records,
             'count' => count($records)
-        ));
+        ))->success();
     }
 
     /**
@@ -156,11 +156,11 @@ class ConfigController extends ControllerAbstract
         $records  = $sql->fetchAll();
         $total    = $sql->count();
 
-        return $this->json->success(array(
+        return $this->json->add(array(
             'data'  => $records,
             'count' => count($records),
             'total' => $total
-        ));
+        ))->success();
     }
 
     protected function filterQuery(Request $request, \SelectQuery $sql, $columns)

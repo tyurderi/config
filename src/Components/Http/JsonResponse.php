@@ -27,30 +27,34 @@ class JsonResponse
         $this->data    = array();
     }
 
-    public function success($message = '', $data = array())
+    public function add($name, $value = null)
     {
-        if(is_array($message) && empty($data)) {
-            $data = $message;
-            $message = '';
+        if(is_string($name) && $value === null)
+        {
+            $this->message = $name;
+        }
+        else if(is_string($name) && isset($value))
+        {
+            $this->data[$name] = $value;
+        }
+        else if(is_array($name) && $value === null)
+        {
+            $this->data = array_merge($this->data, $name);
         }
 
+        return $this;
+    }
+
+    public function success()
+    {
         $this->success = true;
-        $this->message = $message;
-        $this->data    = $data;
 
         return $this->send();
     }
 
-    public function failure($message = '', $data = array())
+    public function failure()
     {
-        if(is_array($message) && empty($data)) {
-            $data = $message;
-            $message = '';
-        }
-
         $this->success = false;
-        $this->message = $message;
-        $this->data    = $data;
 
         return $this->send();
     }
@@ -76,7 +80,7 @@ class JsonResponse
             $response['message'] = $this->message;
         }
 
-        if(!empty($this->data) && is_array($this->data)) {
+        if(!empty($this->data)) {
             $response = array_merge($this->data, $response);
         }
 
